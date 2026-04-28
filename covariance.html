@@ -8,7 +8,7 @@
 
 <meta name="author" content="Kamil Filipek">
 
-<title>4.1. Covariance and Correlation – Business Statistics</title>
+<title>5.1. Covariance – Business Statistics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./linear_regression.html" rel="next">
+<link href="./correlation.html" rel="next">
 <link href="./chi_square_ttest.html" rel="prev">
 <link href="./assets/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./covariance_correlation.html"><strong>4. Relationships Between Variables</strong></a></li><li class="breadcrumb-item"><a href="./covariance_correlation.html"><span class="chapter-title">4.1. Covariance and Correlation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./covariance.html"><strong>5. Covariance and Correlation</strong></a></li><li class="breadcrumb-item"><a href="./covariance.html"><span class="chapter-title">5.1. Covariance</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -201,6 +201,11 @@ window.Quarto = {
   <a href="./variables.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.2. Variables and Measurement Scales</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3. Introduction to R and Markdown</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -227,12 +232,33 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>3. Statistical Inference</strong></span></a>
+ <span class="menu-text"><strong>3. Data Preparation</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_quality.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3.1. Data Quality and Missing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./visualization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3.2. Data Visualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>4. Statistical Inference</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis_testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3.1. Statistical Hypothesis Testing</span></a>
@@ -252,34 +278,8 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>4. Relationships Between Variables</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./covariance_correlation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">4.1. Covariance and Correlation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4.2. Linear Regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./logistic_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4.3. Logistic Regression</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>5. Advanced Topics</strong></span></a>
+ <span class="menu-text"><strong>5. Covariance and Correlation</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -287,12 +287,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data_quality.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5.1. Data Quality and Missing Data</span></a>
+  <a href="./covariance.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">5.1. Covariance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5.2. Structural Equation Modelling</span></a>
+  <a href="./correlation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5.2. Correlation</span></a>
   </div>
 </li>
       </ul>
@@ -300,12 +300,59 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">References</span></a>
+ <span class="menu-text"><strong>6. Regression Models</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6.1. Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6.2. Logistic Regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>7. Factor Analysis and SEM</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./efa.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7.1. Exploratory Factor Analysis (EFA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cfa.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7.2. Confirmatory Factor Analysis (CFA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sem.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7.3. Structural Equation Modelling (SEM)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ref.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">References</span></a>
@@ -323,21 +370,20 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#covariance" id="toc-covariance" class="nav-link active" data-scroll-target="#covariance">4.1.1. Covariance</a></li>
-  <li><a href="#pearson-correlation-coefficient" id="toc-pearson-correlation-coefficient" class="nav-link" data-scroll-target="#pearson-correlation-coefficient">4.1.2. Pearson Correlation Coefficient</a></li>
-  <li><a href="#spearman-and-kendall-rank-correlations" id="toc-spearman-and-kendall-rank-correlations" class="nav-link" data-scroll-target="#spearman-and-kendall-rank-correlations">4.1.3. Spearman and Kendall Rank Correlations</a></li>
-  <li><a href="#correlation-causation" id="toc-correlation-causation" class="nav-link" data-scroll-target="#correlation-causation">4.1.4. Correlation ≠ Causation</a></li>
-  <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix">4.1.5. Correlation Matrix</a></li>
-  <li><a href="#choosing-the-right-correlation-measure" id="toc-choosing-the-right-correlation-measure" class="nav-link" data-scroll-target="#choosing-the-right-correlation-measure">4.1.6. Choosing the Right Correlation Measure</a></li>
+  <li><a href="#what-is-covariance" id="toc-what-is-covariance" class="nav-link active" data-scroll-target="#what-is-covariance">5.1.1. What Is Covariance?</a></li>
+  <li><a href="#manual-calculation" id="toc-manual-calculation" class="nav-link" data-scroll-target="#manual-calculation">5.1.2. Manual Calculation</a></li>
+  <li><a href="#the-covariance-matrix" id="toc-the-covariance-matrix" class="nav-link" data-scroll-target="#the-covariance-matrix">5.1.3. The Covariance Matrix</a></li>
+  <li><a href="#limitation-scale-dependence" id="toc-limitation-scale-dependence" class="nav-link" data-scroll-target="#limitation-scale-dependence">5.1.4. Limitation: Scale Dependence</a></li>
+  <li><a href="#covariance-in-context-portfolio-theory" id="toc-covariance-in-context-portfolio-theory" class="nav-link" data-scroll-target="#covariance-in-context-portfolio-theory">5.1.5. Covariance in Context: Portfolio Theory</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./covariance_correlation.html"><strong>4. Relationships Between Variables</strong></a></li><li class="breadcrumb-item"><a href="./covariance_correlation.html"><span class="chapter-title">4.1. Covariance and Correlation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./covariance.html"><strong>5. Covariance and Correlation</strong></a></li><li class="breadcrumb-item"><a href="./covariance.html"><span class="chapter-title">5.1. Covariance</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">4.1. Covariance and Correlation</span></h1>
+<h1 class="title"><span class="chapter-title">5.1. Covariance</span></h1>
 </div>
 
 
@@ -360,162 +406,140 @@ window.Quarto = {
 </header>
 
 
-<section id="covariance" class="level3">
-<h3 class="anchored" data-anchor-id="covariance">4.1.1. Covariance</h3>
-<p><strong>Covariance</strong> measures how two variables change together. If both tend to be above their respective means at the same time, covariance is positive; if one tends to be high when the other is low, it is negative.</p>
-<p><span class="math display">\[\text{cov}(x, y) = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{n - 1}\]</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a>x <span class="op">=</span> [<span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">33</span>]</span>
-<span id="cb1-4"><a href="#cb1-4"></a>y <span class="op">=</span> [<span class="dv">5</span>,  <span class="dv">15</span>,  <span class="dv">9</span>, <span class="dv">20</span>, <span class="dv">25</span>]</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Manual calculation</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>x_dev <span class="op">=</span> [xi <span class="op">-</span> np.mean(x) <span class="cf">for</span> xi <span class="kw">in</span> x]</span>
-<span id="cb1-8"><a href="#cb1-8"></a>y_dev <span class="op">=</span> [yi <span class="op">-</span> np.mean(y) <span class="cf">for</span> yi <span class="kw">in</span> y]</span>
-<span id="cb1-9"><a href="#cb1-9"></a>cov_xy <span class="op">=</span> <span class="bu">sum</span>(xd <span class="op">*</span> yd <span class="cf">for</span> xd, yd <span class="kw">in</span> <span class="bu">zip</span>(x_dev, y_dev)) <span class="op">/</span> (<span class="bu">len</span>(x) <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="bu">print</span>(<span class="ss">f"Manual covariance:  </span><span class="sc">{</span>cov_xy<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Using numpy</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="bu">print</span>(<span class="ss">f"NumPy covariance:   </span><span class="sc">{</span>np<span class="sc">.</span>cov(x, y)[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Limitation:</strong> Covariance is scale-dependent. A covariance of 50 between revenue (millions €) and headcount (people) is not directly comparable to a covariance of 50 between two quiz scores.</p>
+<section id="what-is-covariance" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-covariance">5.1.1. What Is Covariance?</h3>
+<p><strong>Covariance</strong> measures the direction and degree to which two variables change together. If both variables tend to be above their respective means at the same time, the covariance is <strong>positive</strong>; if one tends to be high when the other is low, the covariance is <strong>negative</strong>; if they move independently, the covariance is close to <strong>zero</strong>.</p>
+<p><span class="math display">\[\text{cov}(X, Y) = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{n - 1}\]</span></p>
+<p>Intuitively, each term <span class="math inline">\((x_i - \bar{x})(y_i - \bar{y})\)</span> is positive when both variables are simultaneously above or below their means, and negative otherwise.</p>
+<hr>
 </section>
-<section id="pearson-correlation-coefficient" class="level3">
-<h3 class="anchored" data-anchor-id="pearson-correlation-coefficient">4.1.2. Pearson Correlation Coefficient</h3>
-<p><strong>Pearson correlation</strong> standardises covariance by dividing by the product of the two standard deviations:</p>
-<p><span class="math display">\[r_{xy} = \frac{\text{cov}(x, y)}{s_x \cdot s_y} = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i - \bar{x})^2 \cdot \sum(y_i - \bar{y})^2}}\]</span></p>
-<p>The result always lies in <span class="math inline">\([-1, 1]\)</span>:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Value</th>
-<th>Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>r = 1</td>
-<td>Perfect positive linear relationship</td>
-</tr>
-<tr class="even">
-<td>0.7 ≤ r &lt; 1</td>
-<td>Strong positive relationship</td>
-</tr>
-<tr class="odd">
-<td>0.3 ≤ r &lt; 0.7</td>
-<td>Moderate positive relationship</td>
-</tr>
-<tr class="even">
-<td>r ≈ 0</td>
-<td>No linear relationship</td>
-</tr>
-<tr class="odd">
-<td>−0.7 &lt; r ≤ −0.3</td>
-<td>Moderate negative relationship</td>
-</tr>
-<tr class="even">
-<td>r = −1</td>
-<td>Perfect negative linear relationship</td>
-</tr>
-</tbody>
-</table>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>x <span class="op">=</span> [<span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">33</span>]</span>
-<span id="cb2-5"><a href="#cb2-5"></a>y <span class="op">=</span> [<span class="dv">5</span>,  <span class="dv">15</span>,  <span class="dv">9</span>, <span class="dv">20</span>, <span class="dv">25</span>]</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a>r, p_value <span class="op">=</span> pearsonr(x, y)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="bu">print</span>(<span class="ss">f"Pearson r = </span><span class="sc">{</span>r<span class="sc">:.3f}</span><span class="ss">, p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="manual-calculation" class="level3">
+<h3 class="anchored" data-anchor-id="manual-calculation">5.1.2. Manual Calculation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># R example</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">33</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,  <span class="dv">15</span>,  <span class="dv">9</span>, <span class="dv">20</span>, <span class="dv">25</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>x_dev <span class="ot">&lt;-</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>y_dev <span class="ot">&lt;-</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>cov_manual <span class="ot">&lt;-</span> <span class="fu">sum</span>(x_dev <span class="sc">*</span> y_dev) <span class="sc">/</span> (<span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">cat</span>(<span class="st">"Manual covariance: "</span>, <span class="fu">round</span>(cov_manual, <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Built-in</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">cat</span>(<span class="st">"cov() result:      "</span>, <span class="fu">round</span>(<span class="fu">cov</span>(x, y), <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>x <span class="op">=</span> [<span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">33</span>]</span>
+<span id="cb2-4"><a href="#cb2-4"></a>y <span class="op">=</span> [<span class="dv">5</span>,  <span class="dv">15</span>,  <span class="dv">9</span>, <span class="dv">20</span>, <span class="dv">25</span>]</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># Manual</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>x_dev <span class="op">=</span> [xi <span class="op">-</span> np.mean(x) <span class="cf">for</span> xi <span class="kw">in</span> x]</span>
+<span id="cb2-8"><a href="#cb2-8"></a>y_dev <span class="op">=</span> [yi <span class="op">-</span> np.mean(y) <span class="cf">for</span> yi <span class="kw">in</span> y]</span>
+<span id="cb2-9"><a href="#cb2-9"></a>cov_manual <span class="op">=</span> <span class="bu">sum</span>(xd <span class="op">*</span> yd <span class="cf">for</span> xd, yd <span class="kw">in</span> <span class="bu">zip</span>(x_dev, y_dev)) <span class="op">/</span> (<span class="bu">len</span>(x) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="bu">print</span>(<span class="ss">f"Manual covariance:  </span><span class="sc">{</span>cov_manual<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># NumPy — returns 2×2 matrix; off-diagonal element is cov(x,y)</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="bu">print</span>(<span class="ss">f"NumPy covariance:   </span><span class="sc">{</span>np<span class="sc">.</span>cov(x, y)[<span class="dv">0</span>, <span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
 </section>
-<section id="spearman-and-kendall-rank-correlations" class="level3">
-<h3 class="anchored" data-anchor-id="spearman-and-kendall-rank-correlations">4.1.3. Spearman and Kendall Rank Correlations</h3>
-<p>When data are <strong>ordinal</strong> or the relationship is <strong>non-linear</strong>, rank-based (non-parametric) correlations are preferred:</p>
-<ul>
-<li><strong>Spearman ρ (rho):</strong> Pearson correlation of the ranks</li>
-<li><strong>Kendall τ (tau):</strong> proportion of concordant minus discordant pairs</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> spearmanr, kendalltau</span>
+<section id="the-covariance-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="the-covariance-matrix">5.1.3. The Covariance Matrix</h3>
+<p>When analysing more than two variables, we compute a <strong>covariance matrix</strong> — a symmetric matrix where the diagonal entries are variances and the off-diagonal entries are pairwise covariances.</p>
+<p><span class="math display">\[\Sigma = \begin{pmatrix}
+\text{var}(X_1) &amp; \text{cov}(X_1, X_2) &amp; \cdots \\
+\text{cov}(X_2, X_1) &amp; \text{var}(X_2) &amp; \cdots \\
+\vdots &amp; \vdots &amp; \ddots
+\end{pmatrix}\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># Example: customer rank by tenure vs. rank by satisfaction</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>tenure_rank <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
-<span id="cb3-5"><a href="#cb3-5"></a>satisfaction <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">10</span>]</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a>rho, p1 <span class="op">=</span> spearmanr(tenure_rank, satisfaction)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>tau, p2 <span class="op">=</span> kendalltau(tenure_rank, satisfaction)</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="bu">print</span>(<span class="ss">f"Spearman ρ = </span><span class="sc">{</span>rho<span class="sc">:.3f}</span><span class="ss"> (p = </span><span class="sc">{</span>p1<span class="sc">:.4f}</span><span class="ss">)"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="bu">print</span>(<span class="ss">f"Kendall τ  = </span><span class="sc">{</span>tau<span class="sc">:.3f}</span><span class="ss"> (p = </span><span class="sc">{</span>p2<span class="sc">:.4f}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="at">revenue    =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">100</span>),</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="at">ad_spend   =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">15</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="at">staff      =</span> <span class="fu">sample</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="at">profit     =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">120</span>, <span class="dv">40</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co"># Add a realistic relationship</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">revenue =</span> revenue <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> ad_spend)</span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co"># Covariance matrix</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">cov</span>(df)</span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="fu">print</span>(<span class="fu">round</span>(cov_matrix, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
 </section>
-<section id="correlation-causation" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-causation">4.1.4. Correlation ≠ Causation</h3>
-<p><strong>Correlation</strong> reveals statistical association; <strong>causation</strong> requires evidence that changes in X <em>produce</em> changes in Y. Confusing the two is one of the most common reasoning errors in business.</p>
-<p>Classic spurious correlations: - Per-capita cheese consumption correlates with deaths by bedsheet tangling (r ≈ 0.95) — both rise gradually over time (time trend confounder) - Ice cream sales correlate with drowning rates — both are driven by hot weather (common cause)</p>
-<p>In business, correlations must be interpreted with knowledge of: - <strong>Confounders</strong> — variables that drive both X and Y - <strong>Reverse causation</strong> — does X cause Y, or Y cause X? - <strong>Selection bias</strong> — is the sample representative?</p>
-</section>
-<section id="correlation-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-matrix">4.1.5. Correlation Matrix</h3>
-<p>When analysing multiple variables simultaneously, compute a <strong>correlation matrix</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-5"><a href="#cb4-5"></a></span>
-<span id="cb4-6"><a href="#cb4-6"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb4-8"><a href="#cb4-8"></a>    <span class="st">"revenue"</span>:    np.random.normal(<span class="dv">500</span>, <span class="dv">100</span>, <span class="dv">100</span>),</span>
-<span id="cb4-9"><a href="#cb4-9"></a>    <span class="st">"ad_spend"</span>:   np.random.normal(<span class="dv">50</span>, <span class="dv">15</span>, <span class="dv">100</span>),</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    <span class="st">"staff"</span>:      np.random.randint(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">100</span>),</span>
-<span id="cb4-11"><a href="#cb4-11"></a>    <span class="st">"satisfaction"</span>: np.random.normal(<span class="fl">7.5</span>, <span class="fl">1.2</span>, <span class="dv">100</span>),</span>
-<span id="cb4-12"><a href="#cb4-12"></a>})</span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co"># Add a realistic correlation: revenue ~ ad_spend</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a>df[<span class="st">"revenue"</span>] <span class="op">=</span> df[<span class="st">"revenue"</span>] <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> df[<span class="st">"ad_spend"</span>]</span>
-<span id="cb4-15"><a href="#cb4-15"></a></span>
-<span id="cb4-16"><a href="#cb4-16"></a>corr <span class="op">=</span> df.corr()</span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="bu">print</span>(corr.<span class="bu">round</span>(<span class="dv">3</span>))</span>
-<span id="cb4-18"><a href="#cb4-18"></a></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co"># Heatmap</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
-<span id="cb4-21"><a href="#cb4-21"></a>sns.heatmap(corr, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, center<span class="op">=</span><span class="dv">0</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
-<span id="cb4-22"><a href="#cb4-22"></a>plt.title(<span class="st">"Correlation matrix"</span>)</span>
-<span id="cb4-23"><a href="#cb4-23"></a>plt.tight_layout()</span>
-<span id="cb4-24"><a href="#cb4-24"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="choosing-the-right-correlation-measure" class="level3">
-<h3 class="anchored" data-anchor-id="choosing-the-right-correlation-measure">4.1.6. Choosing the Right Correlation Measure</h3>
+<section id="limitation-scale-dependence" class="level3">
+<h3 class="anchored" data-anchor-id="limitation-scale-dependence">5.1.4. Limitation: Scale Dependence</h3>
+<p>The most important limitation of covariance is that it is <strong>scale-dependent</strong>.</p>
+<p>Consider: - Revenue measured in euros vs.&nbsp;thousands of euros — the covariance changes by a factor of 1 000 - Comparing cov(Revenue, Headcount) = 12 000 with cov(Score, Time) = 12 000 is meaningless</p>
+<p>This makes it impossible to answer the question <em>“which pair of variables is more strongly related?”</em> using covariance alone.</p>
+<p><strong>Solution:</strong> Standardise covariance → <strong>Pearson correlation coefficient</strong> (next chapter).</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Data type</th>
-<th>Recommended measure</th>
+<th>Property</th>
+<th>Covariance</th>
+<th>Correlation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Both variables continuous + linear relationship</td>
-<td>Pearson r</td>
+<td>Range</td>
+<td><span class="math inline">\((-\infty, +\infty)\)</span></td>
+<td><span class="math inline">\([-1, +1]\)</span></td>
 </tr>
 <tr class="even">
-<td>One or both ordinal</td>
-<td>Spearman ρ</td>
+<td>Units</td>
+<td>Product of original units</td>
+<td>Dimensionless</td>
 </tr>
 <tr class="odd">
-<td>Small sample, or testing monotonic (not just linear) relationship</td>
-<td>Kendall τ</td>
+<td>Interpretation</td>
+<td>Direction only</td>
+<td>Direction + strength</td>
 </tr>
 <tr class="even">
-<td>Both binary (0/1)</td>
-<td>Phi coefficient (= Pearson r for binary)</td>
-</tr>
-<tr class="odd">
-<td>One continuous, one binary</td>
-<td>Point-biserial correlation</td>
+<td>Comparable across variables</td>
+<td>No</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
+<hr>
+</section>
+<section id="covariance-in-context-portfolio-theory" class="level3">
+<h3 class="anchored" data-anchor-id="covariance-in-context-portfolio-theory">5.1.5. Covariance in Context: Portfolio Theory</h3>
+<p>Covariance plays a central role in <strong>Markowitz portfolio theory</strong> (modern portfolio theory). The risk of a portfolio is not just the sum of individual asset risks — it depends on the covariances between assets.</p>
+<p>For a two-asset portfolio:</p>
+<p><span class="math display">\[\sigma_p^2 = w_1^2 \sigma_1^2 + w_2^2 \sigma_2^2 + 2 w_1 w_2 \cdot \text{cov}(r_1, r_2)\]</span></p>
+<p>Where <span class="math inline">\(w_i\)</span> is the portfolio weight and <span class="math inline">\(\sigma_i^2\)</span> is the variance of asset <span class="math inline">\(i\)</span>.</p>
+<ul>
+<li>If <span class="math inline">\(\text{cov}(r_1, r_2) &lt; 0\)</span> — assets move in opposite directions → <strong>diversification reduces risk</strong></li>
+<li>If <span class="math inline">\(\text{cov}(r_1, r_2) &gt; 0\)</span> — assets move together → less diversification benefit</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Simulate two stock return series</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>n <span class="ot">&lt;-</span> <span class="dv">252</span>   <span class="co"># trading days</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>r1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="fl">0.001</span>, <span class="at">sd =</span> <span class="fl">0.015</span>)  <span class="co"># Asset A</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>r2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> r1 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.012</span>)      <span class="co"># Asset B (negatively correlated)</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">cat</span>(<span class="st">"Cov(A, B):"</span>, <span class="fu">round</span>(<span class="fu">cov</span>(r1, r2), <span class="dv">6</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">cat</span>(<span class="st">"Portfolio variance (50/50):"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="fu">round</span>(<span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">var</span>(r1) <span class="sc">+</span> <span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">var</span>(r2) <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">cov</span>(r1, r2), <span class="dv">6</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Key insight:</strong> Two assets with negative covariance reduce portfolio variance below the weighted average of individual variances — the mathematical foundation of diversification.</p>
+</div>
+</div>
 
 
 </section>
@@ -928,8 +952,8 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./linear_regression.html" class="pagination-link" aria-label="4.2. Linear Regression">
-        <span class="nav-page-text"><span class="chapter-title">4.2. Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./correlation.html" class="pagination-link" aria-label="5.2. Correlation">
+        <span class="nav-page-text"><span class="chapter-title">5.2. Correlation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

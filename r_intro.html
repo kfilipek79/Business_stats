@@ -8,7 +8,7 @@
 
 <meta name="author" content="Kamil Filipek">
 
-<title>3.2. Central Limit Theorem – Business Statistics</title>
+<title>1.3. Introduction to R and Markdown – Business Statistics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -69,8 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./chi_square_ttest.html" rel="next">
-<link href="./hypothesis_testing.html" rel="prev">
+<link href="./central_tendency.html" rel="next">
+<link href="./variables.html" rel="prev">
 <link href="./assets/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -111,35 +111,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -152,7 +123,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hypothesis_testing.html"><strong>4. Statistical Inference</strong></a></li><li class="breadcrumb-item"><a href="./clt.html"><span class="chapter-title">3.2. Central Limit Theorem</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stats_in_business.html"><strong>1. Foundations</strong></a></li><li class="breadcrumb-item"><a href="./r_intro.html"><span class="chapter-title">1.3. Introduction to R and Markdown</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -203,7 +174,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./r_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.3. Introduction to R and Markdown</span></a>
+  <a href="./r_intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">1.3. Introduction to R and Markdown</span></a>
   </div>
 </li>
       </ul>
@@ -266,7 +237,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./clt.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">3.2. Central Limit Theorem</span></a>
+  <a href="./clt.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3.2. Central Limit Theorem</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -370,21 +341,24 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#the-core-idea" id="toc-the-core-idea" class="nav-link active" data-scroll-target="#the-core-idea">3.2.1. The Core Idea</a></li>
-  <li><a href="#why-it-matters" id="toc-why-it-matters" class="nav-link" data-scroll-target="#why-it-matters">3.2.2. Why It Matters</a></li>
-  <li><a href="#demonstration-in-python" id="toc-demonstration-in-python" class="nav-link" data-scroll-target="#demonstration-in-python">3.2.3. Demonstration in Python</a></li>
-  <li><a href="#standard-error-and-sample-size" id="toc-standard-error-and-sample-size" class="nav-link" data-scroll-target="#standard-error-and-sample-size">3.2.4. Standard Error and Sample Size</a></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">3.2.5. Confidence Intervals</a></li>
-  <li><a href="#practical-implications" id="toc-practical-implications" class="nav-link" data-scroll-target="#practical-implications">3.2.6. Practical Implications</a></li>
+  <li><a href="#why-r" id="toc-why-r" class="nav-link active" data-scroll-target="#why-r">1.3.1. Why R?</a></li>
+  <li><a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio" class="nav-link" data-scroll-target="#installing-r-and-rstudio">1.3.2. Installing R and RStudio</a></li>
+  <li><a href="#r-basics" id="toc-r-basics" class="nav-link" data-scroll-target="#r-basics">1.3.3. R Basics</a></li>
+  <li><a href="#essential-packages" id="toc-essential-packages" class="nav-link" data-scroll-target="#essential-packages">1.3.4. Essential Packages</a></li>
+  <li><a href="#loading-and-exploring-data" id="toc-loading-and-exploring-data" class="nav-link" data-scroll-target="#loading-and-exploring-data">1.3.5. Loading and Exploring Data</a></li>
+  <li><a href="#r-markdown-reproducible-reports" id="toc-r-markdown-reproducible-reports" class="nav-link" data-scroll-target="#r-markdown-reproducible-reports">1.3.6. R Markdown — Reproducible Reports</a></li>
+  <li><a href="#quarto-the-next-generation" id="toc-quarto-the-next-generation" class="nav-link" data-scroll-target="#quarto-the-next-generation">1.3.7. Quarto — the Next Generation</a></li>
+  <li><a href="#where-to-learn-r" id="toc-where-to-learn-r" class="nav-link" data-scroll-target="#where-to-learn-r">1.3.8. Where to Learn R</a></li>
+  <li><a href="#markdown-syntax-reference" id="toc-markdown-syntax-reference" class="nav-link" data-scroll-target="#markdown-syntax-reference">1.3.9. Markdown Syntax Reference</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hypothesis_testing.html"><strong>4. Statistical Inference</strong></a></li><li class="breadcrumb-item"><a href="./clt.html"><span class="chapter-title">3.2. Central Limit Theorem</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stats_in_business.html"><strong>1. Foundations</strong></a></li><li class="breadcrumb-item"><a href="./r_intro.html"><span class="chapter-title">1.3. Introduction to R and Markdown</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">3.2. Central Limit Theorem</span></h1>
+<h1 class="title"><span class="chapter-title">1.3. Introduction to R and Markdown</span></h1>
 </div>
 
 
@@ -407,89 +381,34 @@ window.Quarto = {
 </header>
 
 
-<section id="the-core-idea" class="level3">
-<h3 class="anchored" data-anchor-id="the-core-idea">3.2.1. The Core Idea</h3>
-<p>The <strong>Central Limit Theorem (CLT)</strong> is one of the most profound results in probability and statistics. It states:</p>
-<blockquote class="blockquote">
-<p><strong>If we draw a large number of independent random samples from any population with a finite mean μ and standard deviation σ, the distribution of sample means will be approximately normal, regardless of the shape of the original population distribution.</strong></p>
-</blockquote>
-<p>More precisely: for samples of size <span class="math inline">\(n\)</span>, the sample mean <span class="math inline">\(\bar{X}\)</span> is approximately:</p>
-<p><span class="math display">\[\bar{X} \sim \mathcal{N}\!\left(\mu,\; \frac{\sigma^2}{n}\right)\]</span></p>
-<p>The standard deviation of this sampling distribution is called the <strong>standard error</strong>:</p>
-<p><span class="math display">\[SE = \frac{\sigma}{\sqrt{n}}\]</span></p>
+<section id="why-r" class="level3">
+<h3 class="anchored" data-anchor-id="why-r">1.3.1. Why R?</h3>
+<p>R is a free, open-source programming language designed specifically for statistical computing and graphics. It has become the standard tool in academic research, data science, and business analytics because:</p>
+<ul>
+<li>It has the richest ecosystem of statistical packages in the world (20 000+ on CRAN)</li>
+<li>Publication-quality plots with <strong>ggplot2</strong></li>
+<li>Reproducible reports with <strong>R Markdown</strong> and <strong>Quarto</strong></li>
+<li>Tight integration with Excel, SQL, Python, and cloud platforms</li>
+<li>Large, friendly community and extensive free learning resources</li>
+</ul>
+<p>R is not a general-purpose language like Python — it is purpose-built for data analysis, which makes it extremely efficient for statistical work.</p>
+<hr>
 </section>
-<section id="why-it-matters" class="level3">
-<h3 class="anchored" data-anchor-id="why-it-matters">3.2.2. Why It Matters</h3>
-<p>The CLT is the theoretical foundation for most frequentist hypothesis tests and confidence intervals. It explains why tools like the z-test and t-test produce valid results even when the underlying population is not normally distributed — as long as the sample is large enough (typically n ≥ 30 is used as a rough rule).</p>
-<p>It also explains the <strong>law of large numbers</strong>: as sample size increases, the sample mean converges to the true population mean.</p>
-</section>
-<section id="demonstration-in-python" class="level3">
-<h3 class="anchored" data-anchor-id="demonstration-in-python">3.2.3. Demonstration in Python</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a>np.random.seed(<span class="dv">0</span>)</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Population: highly non-normal (uniform distribution between 2 and 6)</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>population <span class="op">=</span> np.random.uniform(low<span class="op">=</span><span class="dv">2</span>, high<span class="op">=</span><span class="dv">6</span>, size<span class="op">=</span><span class="dv">100_000</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">4</span>))</span>
-<span id="cb1-10"><a href="#cb1-10"></a></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># Left: population distribution</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>axes[<span class="dv">0</span>].hist(population, bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">"salmon"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Population (uniform)"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Value"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Middle and right: sampling distributions for different n</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="cf">for</span> ax, n, color <span class="kw">in</span> <span class="bu">zip</span>(axes[<span class="dv">1</span>:], [<span class="dv">10</span>, <span class="dv">100</span>], [<span class="st">"steelblue"</span>, <span class="st">"seagreen"</span>]):</span>
-<span id="cb1-18"><a href="#cb1-18"></a>    sample_means <span class="op">=</span> [np.mean(np.random.choice(population, size<span class="op">=</span>n, replace<span class="op">=</span><span class="va">True</span>))</span>
-<span id="cb1-19"><a href="#cb1-19"></a>                    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5_000</span>)]</span>
-<span id="cb1-20"><a href="#cb1-20"></a>    ax.hist(sample_means, bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span>color, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
-<span id="cb1-21"><a href="#cb1-21"></a>    ax.set_title(<span class="ss">f"Sample means (n = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">)"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22"></a>    ax.set_xlabel(<span class="st">"Sample mean"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23"></a>    ax.axvline(np.mean(population), color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="ss">f"μ = </span><span class="sc">{</span>np<span class="sc">.</span>mean(population)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24"></a>    ax.legend()</span>
-<span id="cb1-25"><a href="#cb1-25"></a></span>
-<span id="cb1-26"><a href="#cb1-26"></a>plt.suptitle(<span class="st">"Central Limit Theorem: Non-normal population → Normal sampling distribution"</span>)</span>
-<span id="cb1-27"><a href="#cb1-27"></a>plt.tight_layout()</span>
-<span id="cb1-28"><a href="#cb1-28"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Observation:</strong> Even though the population is perfectly flat (uniform), the distribution of sample means becomes bell-shaped for n = 10 and nearly perfectly normal for n = 100.</p>
-</section>
-<section id="standard-error-and-sample-size" class="level3">
-<h3 class="anchored" data-anchor-id="standard-error-and-sample-size">3.2.4. Standard Error and Sample Size</h3>
-<p>The standard error <span class="math inline">\(SE = \sigma / \sqrt{n}\)</span> has a crucial implication: <strong>doubling the sample size halves the standard error</strong> (uncertainty about the mean). To halve SE again you need to quadruple n — diminishing returns at large sample sizes.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>sigma <span class="op">=</span> <span class="dv">10</span>  <span class="co"># population SD</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>ns <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>, <span class="dv">1000</span>]</span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'n'</span><span class="sc">:&gt;6}</span><span class="ss">  </span><span class="sc">{</span><span class="st">'SE'</span><span class="sc">:&gt;8}</span><span class="ss">"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="cf">for</span> n <span class="kw">in</span> ns:</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    se <span class="op">=</span> sigma <span class="op">/</span> np.sqrt(n)</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:&gt;6}</span><span class="ss">  </span><span class="sc">{</span>se<span class="sc">:&gt;8.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="confidence-intervals" class="level3">
-<h3 class="anchored" data-anchor-id="confidence-intervals">3.2.5. Confidence Intervals</h3>
-<p>The CLT lets us construct <strong>confidence intervals</strong> — ranges that contain the true population mean with a specified probability (e.g., 95%).</p>
-<p><span class="math display">\[\bar{X} \pm z_{\alpha/2} \cdot \frac{s}{\sqrt{n}}\]</span></p>
-<p>where <span class="math inline">\(z_{\alpha/2} = 1.96\)</span> for a 95% CI.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a>np.random.seed(<span class="dv">7</span>)</span>
-<span id="cb3-5"><a href="#cb3-5"></a>sample <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">50</span>, scale<span class="op">=</span><span class="dv">12</span>, size<span class="op">=</span><span class="dv">80</span>)   <span class="co"># 80 customer satisfaction scores</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a>n    <span class="op">=</span> <span class="bu">len</span>(sample)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>mean <span class="op">=</span> sample.mean()</span>
-<span id="cb3-9"><a href="#cb3-9"></a>se   <span class="op">=</span> sample.std(ddof<span class="op">=</span><span class="dv">1</span>) <span class="op">/</span> np.sqrt(n)</span>
-<span id="cb3-10"><a href="#cb3-10"></a>ci   <span class="op">=</span> stats.t.interval(<span class="fl">0.95</span>, df<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>, loc<span class="op">=</span>mean, scale<span class="op">=</span>se)</span>
-<span id="cb3-11"><a href="#cb3-11"></a></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="bu">print</span>(<span class="ss">f"Sample mean:      </span><span class="sc">{</span>mean<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="bu">print</span>(<span class="ss">f"Standard error:   </span><span class="sc">{</span>se<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="bu">print</span>(<span class="ss">f"95% CI:           (</span><span class="sc">{</span>ci[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>ci[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="practical-implications" class="level3">
-<h3 class="anchored" data-anchor-id="practical-implications">3.2.6. Practical Implications</h3>
+<section id="installing-r-and-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="installing-r-and-rstudio">1.3.2. Installing R and RStudio</h3>
+<p><strong>Step 1 — Install R</strong></p>
+<p>Download R from the official CRAN repository:</p>
+<ul>
+<li>Windows/macOS/Linux: <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a></li>
+</ul>
+<p>Always install the <strong>latest release</strong> (≥ 4.3.x as of 2024).</p>
+<p><strong>Step 2 — Install RStudio Desktop</strong></p>
+<p>RStudio is the most popular IDE for R. Download the free version:</p>
+<ul>
+<li><a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></li>
+</ul>
+<p>RStudio gives you a script editor, console, environment browser, and plot viewer in one window.</p>
+<p><strong>RStudio layout:</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -497,41 +416,393 @@ window.Quarto = {
 </colgroup>
 <thead>
 <tr class="header">
-<th>Concept</th>
-<th>Business use</th>
+<th>Panel</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>SE decreases with n</td>
-<td>Larger surveys give narrower confidence intervals — more precise estimates</td>
+<td><strong>Source</strong> (top-left)</td>
+<td>Write and save R scripts / R Markdown files</td>
 </tr>
 <tr class="even">
-<td>CLT justifies z/t tests</td>
-<td>We can test hypotheses about means without knowing the population distribution</td>
+<td><strong>Console</strong> (bottom-left)</td>
+<td>Run commands interactively</td>
 </tr>
 <tr class="odd">
-<td>CI vs.&nbsp;p-value</td>
-<td>CIs communicate <em>magnitude</em> of uncertainty, not just significance — more informative for decision-making</td>
+<td><strong>Environment</strong> (top-right)</td>
+<td>See objects in memory</td>
 </tr>
 <tr class="even">
-<td>Law of large numbers</td>
-<td>Averages over many transactions (e.g., insurance, casino) are highly predictable even when individual outcomes are not</td>
+<td><strong>Files / Plots / Help</strong> (bottom-right)</td>
+<td>Browse files, see plots, read documentation</td>
 </tr>
 </tbody>
 </table>
-<div class="callout callout-style-default callout-note callout-titled">
+<hr>
+</section>
+<section id="r-basics" class="level3">
+<h3 class="anchored" data-anchor-id="r-basics">1.3.3. R Basics</h3>
+<section id="running-code" class="level4">
+<h4 class="anchored" data-anchor-id="running-code">Running code</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># This is a comment — R ignores everything after #</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span>          <span class="co"># arithmetic</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">sqrt</span>(<span class="dv">144</span>)      <span class="co"># function call</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="st">"Hello world"</span>  <span class="co"># string</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="variables-and-assignment" class="level4">
+<h4 class="anchored" data-anchor-id="variables-and-assignment">Variables and assignment</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span>         <span class="co"># preferred assignment operator</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>y <span class="ot">=</span> <span class="dv">10</span>         <span class="co"># also works, but &lt;- is conventional in R</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>name <span class="ot">&lt;-</span> <span class="st">"Anna"</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="fu">cat</span>(<span class="st">"x ="</span>, x, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)  <span class="co"># print to console</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="data-types" class="level4">
+<h4 class="anchored" data-anchor-id="data-types">Data types</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Numeric</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>revenue <span class="ot">&lt;-</span> <span class="fl">125000.50</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Integer</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>n_employees <span class="ot">&lt;-</span> <span class="dv">45</span>L    <span class="co"># L suffix makes it integer</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Logical</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>is_profitable <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># Character (string)</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>department <span class="ot">&lt;-</span> <span class="st">"Marketing"</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># Check type</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="fu">class</span>(revenue)          <span class="co"># "numeric"</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="fu">class</span>(is_profitable)    <span class="co"># "logical"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vectors-the-fundamental-data-structure" class="level4">
+<h4 class="anchored" data-anchor-id="vectors-the-fundamental-data-structure">Vectors — the fundamental data structure</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Create a vector with c() — "combine"</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>scores  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72</span>, <span class="dv">85</span>, <span class="dv">91</span>, <span class="dv">68</span>, <span class="dv">77</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>labels  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>, <span class="st">"Q1"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co"># Basic operations apply element-wise</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>scores <span class="sc">*</span> <span class="fl">1.1</span>            <span class="co"># scale all values by 1.1</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>scores[scores <span class="sc">&gt;</span> <span class="dv">80</span>]     <span class="co"># filter: values above 80</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co"># Summary functions</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="fu">mean</span>(scores)</span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">median</span>(scores)</span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="fu">sd</span>(scores)</span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="fu">summary</span>(scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="data-frames-tabular-data" class="level4">
+<h4 class="anchored" data-anchor-id="data-frames-tabular-data">Data frames — tabular data</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="at">name    =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carol"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">age     =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">34</span>, <span class="dv">29</span>),</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="at">salary  =</span> <span class="fu">c</span>(<span class="dv">55000</span>, <span class="dv">72000</span>, <span class="dv">61000</span>),</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># Access columns</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>df<span class="sc">$</span>age</span>
+<span id="cb5-10"><a href="#cb5-10"></a>df[[<span class="st">"salary"</span>]]</span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co"># Filter rows (base R)</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>df[df<span class="sc">$</span>age <span class="sc">&lt;</span> <span class="dv">30</span>, ]</span>
+<span id="cb5-14"><a href="#cb5-14"></a></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co"># With dplyr (recommended)</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-17"><a href="#cb5-17"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>  <span class="fu">filter</span>(age <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  <span class="fu">select</span>(name, salary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="essential-packages" class="level3">
+<h3 class="anchored" data-anchor-id="essential-packages">1.3.4. Essential Packages</h3>
+<p>Install packages once; load them every session:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Install (run once)</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"ggplot2"</span>, <span class="st">"dplyr"</span>, <span class="st">"readr"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>                   <span class="st">"psych"</span>, <span class="st">"lavaan"</span>, <span class="st">"corrplot"</span>, <span class="st">"skimr"</span>))</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># Load (run every session)</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="fu">library</span>(tidyverse)   <span class="co"># data wrangling + ggplot2</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="fu">library</span>(psych)       <span class="co"># psychological/factor analysis tools</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="fu">library</span>(lavaan)      <span class="co"># SEM and CFA</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="fu">library</span>(corrplot)    <span class="co"># correlation matrix plots</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="fu">library</span>(skimr)       <span class="co"># quick data summaries</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <strong>tidyverse</strong> is a coherent collection of packages (<code>ggplot2</code>, <code>dplyr</code>, <code>tidyr</code>, <code>readr</code>, <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, <code>forcats</code>) that share a consistent design philosophy.</p>
+<hr>
+</section>
+<section id="loading-and-exploring-data" class="level3">
+<h3 class="anchored" data-anchor-id="loading-and-exploring-data">1.3.5. Loading and Exploring Data</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># Load CSV</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/employees.csv"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># Quick overview</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="fu">glimpse</span>(df)    <span class="co"># column names, types, first values</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="fu">skim</span>(df)       <span class="co"># rich summary: missing %, distributions</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co"># Base R equivalents</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="fu">str</span>(df)</span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="fu">summary</span>(df)</span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="fu">head</span>(df, <span class="dv">10</span>)</span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="fu">dim</span>(df)        <span class="co"># rows, columns</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="fu">names</span>(df)      <span class="co"># column names</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="reading-excel-files" class="level4">
+<h4 class="anchored" data-anchor-id="reading-excel-files">Reading Excel files</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/sales_report.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"2023"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="r-markdown-reproducible-reports" class="level3">
+<h3 class="anchored" data-anchor-id="r-markdown-reproducible-reports">1.3.6. R Markdown — Reproducible Reports</h3>
+<p><strong>R Markdown</strong> is a file format (<code>.Rmd</code>) that combines narrative text (Markdown), executable R code, and output (tables, plots) into a single document. You render it into HTML, PDF, or Word with one click.</p>
+<section id="document-structure" class="level4">
+<h4 class="anchored" data-anchor-id="document-structure">Document structure</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">---</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="an">title:</span><span class="co"> "Sales Analysis Q1 2024"</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="an">author:</span><span class="co"> "Kamil Filipek"</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="an">date:</span><span class="co"> "2026-04-28"</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="an">output:</span><span class="co"> html_document</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">---</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">## Overview</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a></span>
+<span id="cb9-10"><a href="#cb9-10"></a>This report analyses Q1 sales data.</span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a></span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a></span>
+<span id="cb9-15"><a href="#cb9-15"></a>::: {.cell}</span>
+<span id="cb9-16"><a href="#cb9-16"></a></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb9-18"><a href="#cb9-18"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"sales_q1.csv"</span>)</span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="fu">summary</span>(df)</span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="in">```</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>:::</span>
+<span id="cb9-22"><a href="#cb9-22"></a></span>
+<span id="cb9-23"><a href="#cb9-23"></a></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="fu">## Revenue by Region</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a></span>
+<span id="cb9-26"><a href="#cb9-26"></a></span>
+<span id="cb9-27"><a href="#cb9-27"></a>::: {.cell}</span>
+<span id="cb9-28"><a href="#cb9-28"></a></span>
+<span id="cb9-29"><a href="#cb9-29"></a><span class="in">```{.r .cell-code}</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb9-31"><a href="#cb9-31"></a>  <span class="fu">group_by</span>(region) <span class="sc">|&gt;</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(revenue)) <span class="sc">|&gt;</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region, <span class="sc">-</span>total), <span class="at">y =</span> total, <span class="at">fill =</span> region)) <span class="sc">+</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Revenue by Region"</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Revenue (€)"</span>) <span class="sc">+</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb9-37"><a href="#cb9-37"></a><span class="in">```</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Render to HTML:</strong> Click <em>Knit</em> in RStudio, or run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="st">"report.Rmd"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="key-chunk-options" class="level4">
+<h4 class="anchored" data-anchor-id="key-chunk-options">Key chunk options</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Values</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>echo</code></td>
+<td>TRUE/FALSE</td>
+<td>Show or hide the code</td>
+</tr>
+<tr class="even">
+<td><code>eval</code></td>
+<td>TRUE/FALSE</td>
+<td>Run or skip the code</td>
+</tr>
+<tr class="odd">
+<td><code>warning</code></td>
+<td>TRUE/FALSE</td>
+<td>Show or hide warnings</td>
+</tr>
+<tr class="even">
+<td><code>message</code></td>
+<td>TRUE/FALSE</td>
+<td>Show or hide messages</td>
+</tr>
+<tr class="odd">
+<td><code>fig.width</code>, <code>fig.height</code></td>
+<td>numeric</td>
+<td>Figure dimensions in inches</td>
+</tr>
+<tr class="even">
+<td><code>include</code></td>
+<td>TRUE/FALSE</td>
+<td>Include chunk output at all</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="quarto-the-next-generation" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-the-next-generation">1.3.7. Quarto — the Next Generation</h3>
+<p><strong>Quarto</strong> (<code>.qmd</code>) is the successor to R Markdown, developed by Posit. It supports R, Python, Julia, and Observable JS in the same document. This course is written in Quarto.</p>
+<p>Key differences from R Markdown:</p>
+<ul>
+<li>Uses YAML chunk options inside <code>#|</code> comments</li>
+<li>Multi-language in a single document</li>
+<li>Built-in support for books, websites, presentations, and interactive dashboards</li>
+<li><code>quarto render document.qmd</code> from the terminal</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg, <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Car weight vs fuel efficiency"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5"></a>       <span class="at">x =</span> <span class="st">"Weight (1000 lbs)"</span>, <span class="at">y =</span> <span class="st">"Miles per gallon"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6"></a>       <span class="at">colour =</span> <span class="st">"Cylinders"</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="where-to-learn-r" class="level3">
+<h3 class="anchored" data-anchor-id="where-to-learn-r">1.3.8. Where to Learn R</h3>
+<p><strong>Free online resources:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resource</th>
+<th>URL</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>R for Data Science (2e)</strong></td>
+<td>r4ds.hadley.nz</td>
+<td>Tidyverse, data wrangling, visualisation</td>
+</tr>
+<tr class="even">
+<td><strong>Introduction to R</strong> (DataCamp)</td>
+<td>datacamp.com</td>
+<td>Interactive exercises</td>
+</tr>
+<tr class="odd">
+<td><strong>Swirl</strong> (interactive R package)</td>
+<td>swirlstats.com</td>
+<td>Learning R inside R</td>
+</tr>
+<tr class="even">
+<td><strong>CRAN Task Views</strong></td>
+<td>cran.r-project.org/web/views</td>
+<td>Finding packages by topic</td>
+</tr>
+<tr class="odd">
+<td><strong>Stack Overflow [r]</strong></td>
+<td>stackoverflow.com/questions/tagged/r</td>
+<td>Troubleshooting</td>
+</tr>
+<tr class="even">
+<td><strong>Posit Community</strong></td>
+<td>community.rstudio.com</td>
+<td>Forums and help</td>
+</tr>
+<tr class="odd">
+<td><strong>YouTube: StatQuest with Josh Starmer</strong></td>
+<td>youtube.com/<span class="citation" data-cites="statquest">(<a href="#ref-statquest" role="doc-biblioref"><strong>statquest?</strong></a>)</span></td>
+<td>Intuitive statistics + R</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended books:</strong></p>
+<ul>
+<li>Wickham, H., Çetinkaya-Rundel, M., &amp; Grolemund, G. (2023). <em>R for Data Science</em> (2nd ed.). O’Reilly.</li>
+<li>Crawley, M. J. (2013). <em>The R Book</em> (2nd ed.). Wiley.</li>
+<li>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). <em>An Introduction to Statistical Learning with Applications in R</em> (2nd ed.). Springer. <em>(free PDF available)</em></li>
+</ul>
+<hr>
+</section>
+<section id="markdown-syntax-reference" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-syntax-reference">1.3.9. Markdown Syntax Reference</h3>
+<p>Markdown is a lightweight markup language. Both R Markdown and Quarto use it for text formatting.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Markdown syntax</th>
+<th>Rendered output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>**bold**</code></td>
+<td><strong>bold</strong></td>
+</tr>
+<tr class="even">
+<td><code>*italic*</code></td>
+<td><em>italic</em></td>
+</tr>
+<tr class="odd">
+<td><code># Heading 1</code></td>
+<td>Large heading</td>
+</tr>
+<tr class="even">
+<td><code>## Heading 2</code></td>
+<td>Medium heading</td>
+</tr>
+<tr class="odd">
+<td><code>`code`</code></td>
+<td>Inline code</td>
+</tr>
+<tr class="even">
+<td><code>[Link](https://url)</code></td>
+<td>Hyperlink</td>
+</tr>
+<tr class="odd">
+<td><code>![](image.png)</code></td>
+<td>Image</td>
+</tr>
+<tr class="even">
+<td><code>&gt; blockquote</code></td>
+<td>Indented quote block</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lists:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="ss">- </span>Item one</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="ss">- </span>Item two</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="ss">  - </span>Nested item</span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="ss">1. </span>First</span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="ss">2. </span>Second</span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="ss">3. </span>Third</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Tables:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1"></a><span class="pp">|</span> Column A <span class="pp">|</span> Column B <span class="pp">|</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="pp">|----------|----------|</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="pp">|</span> Value 1  <span class="pp">|</span> Value 2  <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Math (LaTeX):</strong> Inline: <code>$\bar{x} = \frac{1}{n}\sum x_i$</code>, display:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1"></a>$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Tip</span>Workflow recommendation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Bootstrap: a modern alternative</strong></p>
-<p>When n is small or the statistic is complex (median, correlation), the CLT may not apply. <strong>Bootstrapping</strong> resamples the data with replacement thousands of times to empirically construct the sampling distribution — no distributional assumptions required.</p>
+<p>Write your analysis in a <code>.qmd</code> or <code>.Rmd</code> file from the very first line. This habit ensures your work is always reproducible and easy to share. Never copy-paste results manually — let the document render them automatically.</p>
 </div>
 </div>
 
@@ -941,13 +1212,13 @@ Note
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./hypothesis_testing.html" class="pagination-link" aria-label="3.1. Statistical Hypothesis Testing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">3.1. Statistical Hypothesis Testing</span></span>
+      <a href="./variables.html" class="pagination-link" aria-label="1.2. Variables and Measurement Scales">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.2. Variables and Measurement Scales</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chi_square_ttest.html" class="pagination-link" aria-label="3.3. Chi-Square Test and t-Tests">
-        <span class="nav-page-text"><span class="chapter-title">3.3. Chi-Square Test and t-Tests</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./central_tendency.html" class="pagination-link" aria-label="2.1. Central Tendency">
+        <span class="nav-page-text"><span class="chapter-title">2.1. Central Tendency</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
