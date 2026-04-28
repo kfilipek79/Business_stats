@@ -1,0 +1,48 @@
+---
+title: "Business Statistics — From Data to Decisions"
+author: "Kamil Filipek"
+---
+
+## Welcome
+
+This course introduces the statistical foundations essential for modern business decision-making. Statistics has become the backbone of evidence-based management, marketing analytics, financial modelling, and artificial intelligence. Whether you work in consulting, finance, HR, or tech, the ability to reason from data is a core professional skill.
+
+The course covers both **conceptual understanding** and **practical implementation** — primarily in Python and R — so that you can apply the methods immediately in real-world contexts.
+
+---
+
+## Who Is This Course For?
+
+This course is designed for students of business administration, economics, and social sciences who want to build a solid foundation in applied statistics. No advanced mathematics is required, but comfort with basic algebra is helpful.
+
+---
+
+## Course Structure
+
+| Part | Topics |
+|------|--------|
+| **1. Foundations** | Why statistics matters; variables and measurement; intro to R and Markdown |
+| **2. Descriptive Statistics** | Central tendency, variability, shape of distributions |
+| **3. Data Preparation** | Data quality and cleaning, data visualisation |
+| **4. Statistical Inference** | Hypothesis testing, sampling, CLT, χ², t-tests |
+| **5. Covariance and Correlation** | Covariance, Pearson/Spearman/Kendall correlation, correlation matrix visualisations |
+| **6. Regression Models** | Linear regression, logistic regression |
+| **7. Factor Analysis and SEM** | EFA (with optimal factor selection), CFA, Structural Equation Modelling |
+
+---
+
+## Tools Used
+
+- **Python** (pandas, scipy, statsmodels, matplotlib, seaborn)
+- **R** (base R, ggplot2, lm, glm, lavaan)
+
+Code examples are provided in both languages where relevant.
+
+---
+
+## Recommended Reading
+
+- Black, K. (2009). *Business Statistics: Contemporary Decision Making*. Wiley.
+- Kazmier, L. J. (2009). *Theory and Problems of Business Statistics*. McGraw-Hill.
+- McEvoy, D. M. (2018). *A Guide to Business Statistics*. Wiley.
+- Akinkunmi, M. A. (2019). *Business Statistics with Solutions in R*. De Gruyter.

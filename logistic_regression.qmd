@@ -1,0 +1,175 @@
+---
+title: "6.2. Logistic Regression"
+author: "Kamil Filipek"
+---
+
+### 4.3.1. Why Not Linear Regression for Binary Outcomes?
+
+When the dependent variable is **binary** (e.g., purchased/not purchased, churned/stayed, defaulted/repaid), linear regression is inappropriate:
+
+- Predicted values can fall outside [0, 1]
+- The relationship between probability and predictors is typically non-linear
+- Residuals violate the normality and homoscedasticity assumptions
+
+**Logistic regression** solves this by modelling the **log-odds** of the outcome as a linear function of predictors.
+
+### 4.3.2. The Logistic Function (Sigmoid)
+
+The **sigmoid function** maps any real number to the interval (0, 1):
+
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+
+The logistic regression model is:
+
+$$P(Y = 1 \mid X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k)}}$$
+
+Equivalently, the **log-odds** (logit) is linear in the predictors:
+
+$$\log\!\left(\frac{P}{1-P}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k$$
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+z = np.linspace(-6, 6, 200)
+sigmoid = 1 / (1 + np.exp(-z))
+
+plt.figure(figsize=(7, 4))
+plt.plot(z, sigmoid, color="steelblue", linewidth=2)
+plt.axhline(0.5, color="red", linestyle="--", alpha=0.7)
+plt.xlabel("Linear predictor z"), plt.ylabel("P(Y = 1)")
+plt.title("Sigmoid function"), plt.grid(alpha=0.3), plt.tight_layout(), plt.show()
+```
+
+### 4.3.3. Odds and Odds Ratio
+
+The **odds** of an event are the ratio of probability it occurs to probability it does not:
+
+$$\text{Odds} = \frac{P}{1 - P}$$
+
+The **odds ratio (OR)** compares odds between two groups (e.g., smokers vs. non-smokers):
+
+$$OR = \frac{P_A / (1 - P_A)}{P_B / (1 - P_B)}$$
+
+In logistic regression, $e^{\beta_j}$ is the odds ratio for a one-unit increase in $X_j$:
+- OR > 1 → predictor increases the odds of the outcome
+- OR < 1 → predictor decreases the odds
+- OR = 1 → no association
+
+### 4.3.4. Customer Churn Example
+
+```python
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+from sklearn.metrics import classification_report, roc_auc_score
+
+np.random.seed(42)
+n = 500
+
+df = pd.DataFrame({
+    "tenure_months": np.random.randint(1, 60, n),
+    "monthly_spend":  np.random.normal(80, 30, n).clip(10),
+    "support_calls":  np.random.poisson(2, n),
+    "contract_annual": np.random.binomial(1, 0.4, n),
+})
+
+# Simulate churn probability
+log_odds = (
+    -0.05 * df["tenure_months"]
+    + 0.02 * df["support_calls"] * 5
+    - 1.2  * df["contract_annual"]
+    + np.random.normal(0, 0.5, n)
+)
+df["churned"] = (1 / (1 + np.exp(-log_odds)) > 0.5).astype(int)
+
+print(f"Churn rate: {df['churned'].mean():.1%}")
+
+# Fit logistic regression
+X = sm.add_constant(df[["tenure_months", "monthly_spend", "support_calls", "contract_annual"]])
+y = df["churned"]
+
+model = sm.Logit(y, X).fit(disp=False)
+print(model.summary())
+```
+
+### 4.3.5. Interpreting Coefficients
+
+```python
+import numpy as np
+
+# Extract coefficients and compute odds ratios
+coef = model.params
+odds_ratios = np.exp(coef)
+conf_int = np.exp(model.conf_int())
+
+results = pd.DataFrame({
+    "OR": odds_ratios,
+    "CI_lower": conf_int[0],
+    "CI_upper": conf_int[1],
+    "p-value": model.pvalues
+})
+print(results.round(3))
+```
+
+**Interpretation example:** If `tenure_months` coefficient = −0.05, then OR = exp(−0.05) ≈ 0.95 — each additional month of tenure reduces the odds of churn by about 5%.
+
+### 4.3.6. Model Evaluation
+
+Unlike linear regression, we cannot use R² directly. Common metrics for binary classifiers:
+
+| Metric | Formula | Interpretation |
+|---|---|---|
+| **Accuracy** | (TP + TN) / N | Overall correct predictions |
+| **Precision** | TP / (TP + FP) | Of predicted positives, how many are correct? |
+| **Recall (Sensitivity)** | TP / (TP + FN) | Of all actual positives, how many did we catch? |
+| **F1-score** | 2 × (P × R) / (P + R) | Harmonic mean of precision and recall |
+| **AUC-ROC** | Area under ROC curve | Discrimination ability; 0.5 = random, 1 = perfect |
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report, roc_auc_score
+
+X_arr = df[["tenure_months", "monthly_spend", "support_calls", "contract_annual"]].values
+y_arr = df["churned"].values
+
+X_train, X_test, y_train, y_test = train_test_split(X_arr, y_arr, test_size=0.2, random_state=42)
+
+clf = LogisticRegression(max_iter=1000)
+clf.fit(X_train, y_train)
+
+y_pred = clf.predict(X_test)
+y_prob = clf.predict_proba(X_test)[:, 1]
+
+print(classification_report(y_test, y_pred))
+print(f"AUC-ROC: {roc_auc_score(y_test, y_prob):.3f}")
+```
+
+### 4.3.7. Decision Boundary and Threshold
+
+By default, logistic regression classifies as positive if predicted probability ≥ 0.5. In business applications, the **optimal threshold** depends on the costs of false positives vs. false negatives:
+
+- **Fraud detection:** prefer low threshold → catch more fraud (high recall), accept more false alarms
+- **Churn intervention:** balance recall (finding churners) and precision (not over-spending on loyal customers)
+
+```python
+import matplotlib.pyplot as plt
+
+thresholds = np.linspace(0.01, 0.99, 100)
+precisions, recalls, f1s = [], [], []
+
+for t in thresholds:
+    pred = (y_prob >= t).astype(int)
+    from sklearn.metrics import precision_score, recall_score, f1_score
+    precisions.append(precision_score(y_test, pred, zero_division=0))
+    recalls.append(recall_score(y_test, pred, zero_division=0))
+    f1s.append(f1_score(y_test, pred, zero_division=0))
+
+plt.plot(thresholds, precisions, label="Precision")
+plt.plot(thresholds, recalls,   label="Recall")
+plt.plot(thresholds, f1s,       label="F1")
+plt.xlabel("Decision threshold"), plt.legend()
+plt.title("Precision-Recall tradeoff vs. threshold")
+plt.tight_layout(), plt.show()
+```

@@ -1,0 +1,158 @@
+---
+title: "6.1. Linear Regression"
+author: "Kamil Filipek"
+---
+
+### 4.2.1. Introduction
+
+**Regression analysis** is the most widely used statistical technique in quantitative research. It models and quantifies relationships between variables, enabling:
+
+- estimation of the effect of one variable on another
+- prediction of unknown values
+- hypothesis testing about associations
+- quantification of uncertainty in estimates
+
+In regression we distinguish:
+
+- **Dependent variable (Y)** — the outcome we want to explain or predict
+- **Independent variable(s) (X)** — variables used to explain variation in Y
+
+### 4.2.2. Simple Linear Regression
+
+**Simple linear regression** models the relationship between one predictor X and outcome Y as a straight line:
+
+$$Y = \beta_0 + \beta_1 X + \varepsilon$$
+
+where:
+- $\beta_0$ — intercept (value of Y when X = 0)
+- $\beta_1$ — slope (change in Y for a one-unit increase in X)
+- $\varepsilon$ — error term (residual, unexplained variation)
+
+Parameters are estimated by **Ordinary Least Squares (OLS)**, which minimises the sum of squared residuals:
+
+$$\hat{\beta}_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2} \qquad \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$$
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+np.random.seed(0)
+x = np.linspace(1, 10, 50).reshape(-1, 1)
+y = 3.5 * x.flatten() + 8 + np.random.normal(0, 3, 50)
+
+model = LinearRegression()
+model.fit(x, y)
+
+print(f"Intercept (β₀): {model.intercept_:.3f}")
+print(f"Slope     (β₁): {model.coef_[0]:.3f}")
+
+plt.scatter(x, y, alpha=0.7, label="Data")
+plt.plot(x, model.predict(x), color="red", label="Regression line")
+plt.xlabel("X"), plt.ylabel("Y"), plt.legend(), plt.tight_layout(), plt.show()
+```
+
+### 4.2.3. Multiple Linear Regression
+
+**Multiple linear regression** extends the simple model to $k$ predictors:
+
+$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k + \varepsilon$$
+
+```python
+import pandas as pd
+import statsmodels.api as sm
+import numpy as np
+
+np.random.seed(1)
+n = 200
+df = pd.DataFrame({
+    "ad_spend":    np.random.uniform(10, 100, n),
+    "price_index": np.random.uniform(0.8, 1.2, n),
+    "season":      np.random.choice([0, 1], n),   # off=0, peak=1
+})
+df["sales"] = (
+    200
+    + 3.5 * df["ad_spend"]
+    - 80 * df["price_index"]
+    + 40 * df["season"]
+    + np.random.normal(0, 15, n)
+)
+
+X = sm.add_constant(df[["ad_spend", "price_index", "season"]])
+result = sm.OLS(df["sales"], X).fit()
+print(result.summary())
+```
+
+### 4.2.4. Interpreting Regression Output
+
+Key elements of the regression summary:
+
+| Output | Interpretation |
+|---|---|
+| **Coefficient (β)** | Change in Y for a one-unit increase in X, holding all other X constant |
+| **p-value** | Test of H₀: β = 0 (predictor has no effect); p < 0.05 → significant |
+| **R²** | Proportion of variance in Y explained by the model (0–1) |
+| **Adj. R²** | R² penalised for number of predictors — use for model comparison |
+| **F-statistic** | Tests whether at least one β ≠ 0 (overall model significance) |
+| **Residuals** | Differences between observed and predicted Y; check for patterns |
+
+### 4.2.5. Gauss-Markov Assumptions (OLS)
+
+For OLS estimates to be BLUE (Best Linear Unbiased Estimators):
+
+1. **Linearity** — the relationship between X and Y is linear in parameters
+2. **Independence** — observations are independent of each other
+3. **Homoscedasticity** — variance of residuals is constant across all X
+4. **No multicollinearity** — predictors are not perfectly correlated with each other
+5. **Normality of residuals** — residuals are approximately normally distributed (required for inference, not estimation)
+
+```python
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+
+# Diagnostic plots
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+# Residuals vs. fitted
+fitted = result.fittedvalues
+residuals = result.resid
+axes[0].scatter(fitted, residuals, alpha=0.5)
+axes[0].axhline(0, color="red", linestyle="--")
+axes[0].set_xlabel("Fitted values"), axes[0].set_ylabel("Residuals")
+axes[0].set_title("Residuals vs. Fitted (check homoscedasticity)")
+
+# Q-Q plot (normality of residuals)
+sm.qqplot(residuals, line="s", ax=axes[1])
+axes[1].set_title("Q-Q Plot (check normality of residuals)")
+
+plt.tight_layout()
+plt.show()
+```
+
+### 4.2.6. Prediction
+
+```python
+# Predict sales for a new scenario
+new_data = pd.DataFrame({
+    "ad_spend":    [60],
+    "price_index": [1.0],
+    "season":      [1],      # peak season
+})
+X_new = sm.add_constant(new_data, has_constant="add")
+prediction = result.predict(X_new)
+print(f"Predicted sales: {prediction.values[0]:.1f} units")
+
+# With confidence interval
+pred_ci = result.get_prediction(X_new).summary_frame(alpha=0.05)
+print(pred_ci[["mean", "mean_ci_lower", "mean_ci_upper"]])
+```
+
+### 4.2.7. Types of Regression Models
+
+| Model | Description | When to use |
+|---|---|---|
+| **Simple OLS** | One predictor | Quick first analysis |
+| **Multiple OLS** | Several predictors | Most practical use cases |
+| **Polynomial** | Non-linear terms (X², X³) | Curved relationships |
+| **Ridge / Lasso** | Regularised regression | Many predictors, multicollinearity, feature selection |
+| **Logistic** | Binary outcome | See next chapter |

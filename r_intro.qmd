@@ -1,0 +1,344 @@
+---
+title: "1.3. Introduction to R and Markdown"
+author: "Kamil Filipek"
+execute:
+  eval: false
+---
+
+### 1.3.1. Why R?
+
+R is a free, open-source programming language designed specifically for statistical computing and graphics. It has become the standard tool in academic research, data science, and business analytics because:
+
+- It has the richest ecosystem of statistical packages in the world (20 000+ on CRAN)
+- Publication-quality plots with **ggplot2**
+- Reproducible reports with **R Markdown** and **Quarto**
+- Tight integration with Excel, SQL, Python, and cloud platforms
+- Large, friendly community and extensive free learning resources
+
+R is not a general-purpose language like Python — it is purpose-built for data analysis, which makes it extremely efficient for statistical work.
+
+---
+
+### 1.3.2. Installing R and RStudio
+
+**Step 1 — Install R**
+
+Download R from the official CRAN repository:
+
+- Windows/macOS/Linux: <https://cran.r-project.org/>
+
+Always install the **latest release** (≥ 4.3.x as of 2024).
+
+**Step 2 — Install RStudio Desktop**
+
+RStudio is the most popular IDE for R. Download the free version:
+
+- <https://posit.co/download/rstudio-desktop/>
+
+RStudio gives you a script editor, console, environment browser, and plot viewer in one window.
+
+**RStudio layout:**
+
+| Panel | Purpose |
+|---|---|
+| **Source** (top-left) | Write and save R scripts / R Markdown files |
+| **Console** (bottom-left) | Run commands interactively |
+| **Environment** (top-right) | See objects in memory |
+| **Files / Plots / Help** (bottom-right) | Browse files, see plots, read documentation |
+
+---
+
+### 1.3.3. R Basics
+
+#### Running code
+
+```r
+# This is a comment — R ignores everything after #
+1 + 1          # arithmetic
+sqrt(144)      # function call
+"Hello world"  # string
+```
+
+#### Variables and assignment
+
+```r
+x <- 5         # preferred assignment operator
+y = 10         # also works, but <- is conventional in R
+name <- "Anna"
+
+cat("x =", x, "\n")  # print to console
+```
+
+#### Data types
+
+```r
+# Numeric
+revenue <- 125000.50
+
+# Integer
+n_employees <- 45L    # L suffix makes it integer
+
+# Logical
+is_profitable <- TRUE
+
+# Character (string)
+department <- "Marketing"
+
+# Check type
+class(revenue)          # "numeric"
+class(is_profitable)    # "logical"
+```
+
+#### Vectors — the fundamental data structure
+
+```r
+# Create a vector with c() — "combine"
+scores  <- c(72, 85, 91, 68, 77)
+labels  <- c("Q1", "Q2", "Q3", "Q4", "Q1")
+
+# Basic operations apply element-wise
+scores * 1.1            # scale all values by 1.1
+scores[scores > 80]     # filter: values above 80
+
+# Summary functions
+mean(scores)
+median(scores)
+sd(scores)
+summary(scores)
+```
+
+#### Data frames — tabular data
+
+```r
+df <- data.frame(
+  name    = c("Alice", "Bob", "Carol"),
+  age     = c(28, 34, 29),
+  salary  = c(55000, 72000, 61000),
+  stringsAsFactors = FALSE
+)
+
+# Access columns
+df$age
+df[["salary"]]
+
+# Filter rows (base R)
+df[df$age < 30, ]
+
+# With dplyr (recommended)
+library(dplyr)
+df |>
+  filter(age < 30) |>
+  select(name, salary)
+```
+
+---
+
+### 1.3.4. Essential Packages
+
+Install packages once; load them every session:
+
+```r
+# Install (run once)
+install.packages(c("tidyverse", "ggplot2", "dplyr", "readr",
+                   "psych", "lavaan", "corrplot", "skimr"))
+
+# Load (run every session)
+library(tidyverse)   # data wrangling + ggplot2
+library(psych)       # psychological/factor analysis tools
+library(lavaan)      # SEM and CFA
+library(corrplot)    # correlation matrix plots
+library(skimr)       # quick data summaries
+```
+
+The **tidyverse** is a coherent collection of packages (`ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, `forcats`) that share a consistent design philosophy.
+
+---
+
+### 1.3.5. Loading and Exploring Data
+
+```r
+library(readr)
+library(dplyr)
+library(skimr)
+
+# Load CSV
+df <- read_csv("data/employees.csv")
+
+# Quick overview
+glimpse(df)    # column names, types, first values
+skim(df)       # rich summary: missing %, distributions
+
+# Base R equivalents
+str(df)
+summary(df)
+head(df, 10)
+dim(df)        # rows, columns
+names(df)      # column names
+```
+
+#### Reading Excel files
+
+```r
+library(readxl)
+df <- read_excel("data/sales_report.xlsx", sheet = "2023")
+```
+
+---
+
+### 1.3.6. R Markdown — Reproducible Reports
+
+**R Markdown** is a file format (`.Rmd`) that combines narrative text (Markdown), executable R code, and output (tables, plots) into a single document. You render it into HTML, PDF, or Word with one click.
+
+#### Document structure
+
+````markdown
+---
+title: "Sales Analysis Q1 2024"
+author: "Kamil Filipek"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Overview
+
+This report analyses Q1 sales data.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+```
+
+```{r load-data}
+df <- read_csv("sales_q1.csv")
+summary(df)
+```
+
+## Revenue by Region
+
+```{r plot-revenue, fig.width=8, fig.height=4}
+df |>
+  group_by(region) |>
+  summarise(total = sum(revenue)) |>
+  ggplot(aes(x = reorder(region, -total), y = total, fill = region)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Revenue by Region", x = NULL, y = "Revenue (€)") +
+  theme_minimal()
+```
+````
+
+**Render to HTML:** Click *Knit* in RStudio, or run:
+
+```r
+rmarkdown::render("report.Rmd")
+```
+
+#### Key chunk options
+
+| Option | Values | Effect |
+|---|---|---|
+| `echo` | TRUE/FALSE | Show or hide the code |
+| `eval` | TRUE/FALSE | Run or skip the code |
+| `warning` | TRUE/FALSE | Show or hide warnings |
+| `message` | TRUE/FALSE | Show or hide messages |
+| `fig.width`, `fig.height` | numeric | Figure dimensions in inches |
+| `include` | TRUE/FALSE | Include chunk output at all |
+
+---
+
+### 1.3.7. Quarto — the Next Generation
+
+**Quarto** (`.qmd`) is the successor to R Markdown, developed by Posit. It supports R, Python, Julia, and Observable JS in the same document. This course is written in Quarto.
+
+Key differences from R Markdown:
+
+- Uses YAML chunk options inside `#|` comments
+- Multi-language in a single document
+- Built-in support for books, websites, presentations, and interactive dashboards
+- `quarto render document.qmd` from the terminal
+
+```{r}
+#| echo: true
+#| fig-width: 8
+#| fig-height: 4
+#| label: fig-example
+#| fig-cap: "Example ggplot2 figure in a Quarto document"
+
+library(ggplot2)
+ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) +
+  geom_point(size = 3) +
+  labs(title = "Car weight vs fuel efficiency",
+       x = "Weight (1000 lbs)", y = "Miles per gallon",
+       colour = "Cylinders") +
+  theme_minimal()
+```
+
+---
+
+### 1.3.8. Where to Learn R
+
+**Free online resources:**
+
+| Resource | URL | Best for |
+|---|---|---|
+| **R for Data Science (2e)** | r4ds.hadley.nz | Tidyverse, data wrangling, visualisation |
+| **Introduction to R** (DataCamp) | datacamp.com | Interactive exercises |
+| **Swirl** (interactive R package) | swirlstats.com | Learning R inside R |
+| **CRAN Task Views** | cran.r-project.org/web/views | Finding packages by topic |
+| **Stack Overflow [r]** | stackoverflow.com/questions/tagged/r | Troubleshooting |
+| **Posit Community** | community.rstudio.com | Forums and help |
+| **YouTube: StatQuest with Josh Starmer** | youtube.com/@statquest | Intuitive statistics + R |
+
+**Recommended books:**
+
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). *R for Data Science* (2nd ed.). O'Reilly.
+- Crawley, M. J. (2013). *The R Book* (2nd ed.). Wiley.
+- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer. *(free PDF available)*
+
+---
+
+### 1.3.9. Markdown Syntax Reference
+
+Markdown is a lightweight markup language. Both R Markdown and Quarto use it for text formatting.
+
+| Markdown syntax | Rendered output |
+|---|---|
+| `**bold**` | **bold** |
+| `*italic*` | *italic* |
+| `# Heading 1` | Large heading |
+| `## Heading 2` | Medium heading |
+| `` `code` `` | Inline code |
+| `[Link](https://url)` | Hyperlink |
+| `![](image.png)` | Image |
+| `> blockquote` | Indented quote block |
+
+**Lists:**
+
+```markdown
+- Item one
+- Item two
+  - Nested item
+
+1. First
+2. Second
+3. Third
+```
+
+**Tables:**
+
+```markdown
+| Column A | Column B |
+|----------|----------|
+| Value 1  | Value 2  |
+```
+
+**Math (LaTeX):** Inline: `$\bar{x} = \frac{1}{n}\sum x_i$`, display:
+
+```markdown
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
+```
+
+::: callout-tip
+#### Workflow recommendation
+
+Write your analysis in a `.qmd` or `.Rmd` file from the very first line. This habit ensures your work is always reproducible and easy to share. Never copy-paste results manually — let the document render them automatically.
+:::

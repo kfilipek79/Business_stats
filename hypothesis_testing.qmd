@@ -1,0 +1,130 @@
+---
+title: "3.1. Statistical Hypothesis Testing"
+author: "Kamil Filipek"
+---
+
+### 3.1.1. What Is Hypothesis Testing?
+
+**Statistical hypothesis testing** is a formal procedure for deciding whether evidence from sample data is strong enough to support a claim about a population. It is a form of **statistical inference** — drawing conclusions about a population from a sample.
+
+The procedure has five steps:
+
+1. Formulate the **null hypothesis** (H₀) and the **alternative hypothesis** (H₁)
+2. Choose a **significance level** α (typically 0.05)
+3. Collect data and compute the **test statistic**
+4. Compute the **p-value** (probability of observing the data if H₀ is true)
+5. **Decide**: reject H₀ if p < α; fail to reject otherwise
+
+### 3.1.2. Null and Alternative Hypotheses
+
+The **null hypothesis (H₀)** is the default assumption — usually that there is no effect, no difference, or no relationship. The **alternative hypothesis (H₁)** is what we want to prove.
+
+Examples:
+
+| Research question | H₀ | H₁ |
+|---|---|---|
+| Does the new product design increase conversion? | μ₁ = μ₂ | μ₁ ≠ μ₂ |
+| Is the average order value different from €50? | μ = 50 | μ ≠ 50 |
+| Does training improve performance? | μ_before = μ_after | μ_before < μ_after |
+
+::: callout-warning
+#### What "fail to reject H₀" means
+
+We never *accept* the null hypothesis. Failing to reject H₀ simply means we did not find sufficient evidence against it — the data are consistent with H₀, but that does not prove H₀ is true.
+:::
+
+### 3.1.3. The p-Value
+
+The **p-value** is the probability of observing data at least as extreme as what we actually observed, *assuming H₀ is true*. It is **not** the probability that H₀ is true.
+
+- p < 0.05 → reject H₀ (result is "statistically significant" at the 5% level)
+- p ≥ 0.05 → do not reject H₀
+
+A small p-value means the observed data would be very unlikely if H₀ were true, providing evidence against H₀.
+
+### 3.1.4. Type I and Type II Errors
+
+| Decision | H₀ true | H₀ false |
+|---|---|---|
+| **Reject H₀** | Type I error (false positive) — probability = α | Correct (power = 1 − β) |
+| **Do not reject** | Correct (probability = 1 − α) | Type II error (false negative) — probability = β |
+
+- **α** (significance level) — the maximum acceptable probability of a Type I error
+- **β** — probability of a Type II error; statistical **power** = 1 − β
+- Reducing α increases β; the tradeoff is managed through sample size
+
+### 3.1.5. Sampling and Sample Distributions
+
+**Population** — the entire group of interest (all customers, all employees, all transactions).
+**Sample** — a subset of the population used to draw inferences.
+
+The **sampling distribution** of a statistic (e.g., the mean) describes how that statistic varies across all possible samples of a given size. This distribution is the theoretical foundation for all hypothesis tests.
+
+#### Sampling Methods
+
+| Method | Description | When to use |
+|---|---|---|
+| **Simple random** | Each unit has equal probability of selection | When sampling frame is known |
+| **Systematic** | Every k-th element from a list | Convenient for large ordered lists |
+| **Stratified** | Random sample within each stratum (group) | Ensures representation of subgroups |
+| **Cluster** | Randomly select entire clusters | Cost-effective for geographically spread populations |
+| **Purposive** | Non-random; expert judgement | Qualitative research; when random sampling is impossible |
+
+#### Sampling in Python
+
+```python
+import pandas as pd
+import numpy as np
+
+np.random.seed(42)
+population = pd.DataFrame({
+    "customer_id": range(1, 10001),
+    "age": np.random.randint(18, 70, 10000),
+    "spend": np.random.exponential(scale=150, size=10000)
+})
+
+# Simple random sample (n=200)
+sample_srs = population.sample(n=200, random_state=42)
+print(f"Population mean spend: {population['spend'].mean():.2f}")
+print(f"Sample mean spend:     {sample_srs['spend'].mean():.2f}")
+```
+
+### 3.1.6. Sampling Bias
+
+A sampling method is **biased** if it systematically favours some outcomes over others.
+
+Common sources of sampling bias:
+
+- **Self-selection / voluntary response bias** — participants choose whether to respond (online surveys, product reviews)
+- **Pre-screening bias** — a strict selection process creates a homogeneous sample
+- **Representation bias** — certain population groups are systematically excluded
+- **Exclusion bias** — deliberately or accidentally omitting a subgroup from analysis
+
+::: callout-note
+**AI and sampling bias:** Algorithms trained on biased data reproduce and often amplify that bias. Amazon's recruiting tool (discontinued in 2018) downgraded resumes from women because historical hiring data reflected past discrimination — a textbook case of how exclusion bias propagates from data to model to decision.
+:::
+
+### 3.1.7. Practical Example: One-Sample z-Test
+
+A manufacturer claims that average battery life is 10 hours. A quality tester draws a sample of 50 batteries.
+
+```python
+from scipy import stats
+import numpy as np
+
+np.random.seed(0)
+# Simulated sample (true mean slightly below claim)
+sample = np.random.normal(loc=9.7, scale=1.2, size=50)
+
+# One-sample t-test (H0: mu = 10)
+t_stat, p_value = stats.ttest_1samp(sample, popmean=10)
+
+print(f"Sample mean:  {sample.mean():.3f}")
+print(f"t-statistic:  {t_stat:.3f}")
+print(f"p-value:      {p_value:.4f}")
+
+if p_value < 0.05:
+    print("Reject H0 — battery life is significantly different from 10h")
+else:
+    print("Fail to reject H0 — no significant difference from 10h")
+```

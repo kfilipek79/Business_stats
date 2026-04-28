@@ -1,0 +1,106 @@
+---
+title: "1.2. Variables and Measurement Scales"
+author: "Kamil Filipek"
+---
+
+### 1.2.1. What Is a Variable?
+
+A **variable** is any characteristic, number, or quantity that can be measured or counted. It is called a variable because its value may differ between observations (data units) and may change over time.
+
+Examples of variables in business:
+- Customer age, annual income, satisfaction score
+- Product category, country of origin, payment method
+- Number of units sold, daily revenue, stock return
+
+### 1.2.2. Types of Variables
+
+Variables are broadly divided into two families:
+
+**Numeric (quantitative) variables** represent measurable quantities:
+
+- *Discrete* — countable values with no meaningful intermediate (number of employees, number of defects)
+- *Continuous* — any value within a range (revenue, temperature, time)
+
+**Categorical (qualitative) variables** represent groups or categories:
+
+- *Nominal* — categories with no inherent order (country, product type, gender)
+- *Ordinal* — categories with a meaningful order but undefined spacing (satisfaction: low / medium / high)
+
+### 1.2.3. Levels of Measurement
+
+The **level of measurement** (measurement scale) determines which statistical operations are valid for a variable. Stevens (1946) proposed four levels, still used universally:
+
+| Scale | Equality | Order | Distances | Absolute zero | Example |
+|---|---|---|---|---|---|
+| **Nominal** | ✓ | ✗ | ✗ | ✗ | Eye colour, nationality |
+| **Ordinal** | ✓ | ✓ | ✗ | ✗ | Education level, Likert rating |
+| **Interval** | ✓ | ✓ | ✓ | ✗ | Temperature (°C), calendar year |
+| **Ratio** | ✓ | ✓ | ✓ | ✓ | Income, weight, age |
+
+**Why does this matter?** The scale of a variable determines the permissible statistics:
+
+- *Nominal*: frequency counts, mode, chi-square tests
+- *Ordinal*: median, percentiles, Spearman correlation
+- *Interval/Ratio*: mean, standard deviation, Pearson correlation, regression
+
+::: callout-note
+A common mistake is calculating means for ordinal data (e.g., averaging a 1–5 satisfaction scale). This is technically invalid because the distances between scale points are undefined, but it is widely done in practice and the debate continues in methodology literature.
+:::
+
+### 1.2.4. Independent and Dependent Variables
+
+In research and modelling, variables are classified by their role:
+
+- **Dependent variable (DV)** — the outcome we want to explain or predict. Also called response, outcome, or target variable.
+- **Independent variable (IV)** — the variable(s) used to explain variation in the DV. Also called predictor, explanatory variable, or feature.
+
+Example in regression notation (R):
+
+```r
+# Predicting happiness from age, income, and gender
+model <- lm(Happiness ~ Age + Income + Gender, data = survey)
+```
+
+In this model:
+- `Happiness` is the dependent variable (Y)
+- `Age`, `Income`, `Gender` are independent variables (X₁, X₂, X₃)
+
+### 1.2.5. Variable Identification in Python
+
+```python
+import pandas as pd
+
+# Sample business dataset
+data = pd.DataFrame({
+    "customer_id": [1, 2, 3, 4, 5],
+    "age": [34, 28, 45, 52, 23],
+    "income": [52000, 38000, 91000, 67000, 29000],
+    "satisfaction": ["high", "medium", "high", "low", "medium"],  # ordinal
+    "region": ["North", "South", "South", "East", "West"],        # nominal
+    "purchases": [3, 1, 7, 4, 2]                                  # ratio
+})
+
+# Check data types
+print(data.dtypes)
+
+# Convert ordinal variable to ordered category
+data["satisfaction"] = pd.Categorical(
+    data["satisfaction"],
+    categories=["low", "medium", "high"],
+    ordered=True
+)
+print(data["satisfaction"].cat.codes)  # numeric encoding: low=0, medium=1, high=2
+```
+
+### 1.2.6. Dependent and Independent Variables in Practice
+
+Identifying the DV and IVs correctly before analysis avoids fundamental logical errors:
+
+| Research question | DV | IVs |
+|---|---|---|
+| Does advertising spend predict sales? | Sales | Ad spend |
+| What factors explain employee turnover? | Turnover (yes/no) | Salary, tenure, manager rating |
+| Does customer age affect purchase frequency? | Purchases per month | Age |
+| Is satisfaction different across regions? | Satisfaction score | Region |
+
+In causal inference, we additionally need to distinguish *correlation* from *causation* — which requires experimental design or careful controls for confounding variables.

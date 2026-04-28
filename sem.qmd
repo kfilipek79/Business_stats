@@ -1,0 +1,269 @@
+---
+title: "7.3. Structural Equation Modelling (SEM)"
+author: "Kamil Filipek"
+---
+
+### 7.3.1. What Is SEM?
+
+**Structural Equation Modelling (SEM)** is a multivariate statistical framework that combines a **measurement model** (CFA) with a **structural model** (path analysis among latent variables) into a single, simultaneous analysis.
+
+SEM extends multiple regression in three important ways:
+
+| Feature | Multiple regression | SEM |
+|---|---|---|
+| Measurement error | Assumed zero | Explicitly modelled |
+| Latent variables | Not possible | Core feature |
+| Multiple outcomes | One at a time | All simultaneously |
+| Indirect effects | Require extra steps | Built-in |
+
+SEM is the method of choice when:
+- Key constructs cannot be directly measured (attitudes, intelligence, brand equity)
+- You need to test a complete theoretical model rather than isolated bivariate relationships
+- You want to quantify mediation (indirect effects) with proper uncertainty estimates
+- You have **multiple dependent variables** that are causally ordered
+
+---
+
+### 7.3.2. Key Components
+
+**Observed variables (manifest):** variables directly measured (survey items, test scores)
+
+**Latent variables (constructs):** theoretical concepts estimated from indicators:
+- *Exogenous* (ξ, "xi") — purely independent; not caused by any other construct in the model
+- *Endogenous* (η, "eta") — depend on at least one other construct in the model
+
+**Paths:**
+- *Factor loadings (λ)* — link between indicators and their latent construct
+- *Structural paths (β, γ)* — directional relationships between latent constructs
+- *Residuals (ε, ζ)* — unexplained variance in indicators and endogenous constructs
+
+---
+
+### 7.3.3. A Conceptual Example
+
+Consider an HR study of how **Job Demands** and **Resources** affect **Burnout** through **Work Engagement** (the Job Demands-Resources model):
+
+```
+Job Demands (ξ₁) ─────────────────────────────────▶ Burnout (η₂)
+                                                        ▲
+Resources (ξ₂) ──▶ Work Engagement (η₁) ──────────────┘
+```
+
+- Job Demands and Resources are measured by survey items (observed)
+- Work Engagement and Burnout are latent constructs
+- We test whether Resources reduce Burnout *indirectly* through Work Engagement (mediation)
+
+---
+
+### 7.3.4. Full SEM in R with lavaan
+
+```r
+library(lavaan)
+
+# ── Simulate data ────────────────────────────────────────────────
+set.seed(42)
+n <- 400
+
+JD  <- rnorm(n)   # Job Demands (exogenous)
+Res <- rnorm(n)   # Resources   (exogenous)
+Eng <- 0.5*Res - 0.2*JD + rnorm(n, 0, 0.8)   # Engagement (endogenous)
+Bo  <- 0.5*JD  - 0.4*Eng + rnorm(n, 0, 0.8)  # Burnout    (endogenous)
+
+hr_data <- data.frame(
+  jd1  = 0.75*JD  + rnorm(n, 0, 0.65),
+  jd2  = 0.80*JD  + rnorm(n, 0, 0.60),
+  jd3  = 0.70*JD  + rnorm(n, 0, 0.71),
+  res1 = 0.78*Res + rnorm(n, 0, 0.62),
+  res2 = 0.82*Res + rnorm(n, 0, 0.57),
+  res3 = 0.74*Res + rnorm(n, 0, 0.67),
+  res4 = 0.68*Res + rnorm(n, 0, 0.73),
+  eng1 = 0.77*Eng + rnorm(n, 0, 0.64),
+  eng2 = 0.80*Eng + rnorm(n, 0, 0.60),
+  eng3 = 0.72*Eng + rnorm(n, 0, 0.69),
+  bo1  = 0.76*Bo  + rnorm(n, 0, 0.65),
+  bo2  = 0.79*Bo  + rnorm(n, 0, 0.61),
+  bo3  = 0.73*Bo  + rnorm(n, 0, 0.68)
+)
+
+# ── Model specification ──────────────────────────────────────────
+model_sem <- '
+  # ── Measurement model ──────────────────
+  job_demands  =~ jd1  + jd2  + jd3
+  resources    =~ res1 + res2 + res3 + res4
+  engagement   =~ eng1 + eng2 + eng3
+  burnout      =~ bo1  + bo2  + bo3
+
+  # ── Structural model (causal paths) ────
+  engagement ~ resources + job_demands      # Resources and JD predict Engagement
+  burnout    ~ job_demands + engagement     # JD and Engagement predict Burnout
+
+  # ── Indirect effect (mediation) ────────
+  # Resources → Engagement → Burnout
+  indirect_res := resources * engagement
+  total_res    := resources + indirect_res
+'
+
+# ── Fit ──────────────────────────────────────────────────────────
+fit_sem <- sem(model_sem,
+               data      = hr_data,
+               estimator = "MLR",       # Robust ML — handles mild non-normality
+               se        = "robust")
+
+# ── Summary ──────────────────────────────────────────────────────
+summary(fit_sem,
+        fit.measures = TRUE,
+        standardized = TRUE,
+        rsquare      = TRUE)
+```
+
+---
+
+### 7.3.5. Model Fit Assessment
+
+A SEM result without fit evaluation is meaningless. Report all four indices:
+
+| Index | Good fit | Acceptable |
+|---|---|---|
+| **CFI** | ≥ 0.95 | ≥ 0.90 |
+| **TLI** | ≥ 0.95 | ≥ 0.90 |
+| **RMSEA** (+ 90% CI) | ≤ 0.06 | ≤ 0.08 |
+| **SRMR** | ≤ 0.08 | ≤ 0.10 |
+| **χ²/df** | ≤ 2 | ≤ 5 |
+
+```r
+fitMeasures(fit_sem,
+            c("chisq", "df", "pvalue",
+              "cfi", "tli",
+              "rmsea", "rmsea.ci.lower", "rmsea.ci.upper",
+              "srmr"))
+```
+
+::: callout-warning
+Never use χ² alone as a fit index — it is extremely sensitive to sample size and almost always significant for n > 200.
+:::
+
+---
+
+### 7.3.6. Interpreting Structural Paths
+
+```r
+# Standardised structural path coefficients
+standardizedSolution(fit_sem) |>
+  subset(op == "~")
+```
+
+Structural coefficients are interpreted like standardised regression coefficients:
+- A path of β = 0.35 means "a one standard-deviation increase in X is associated with a 0.35 standard-deviation change in Y, holding other paths constant"
+
+---
+
+### 7.3.7. Mediation Analysis
+
+SEM makes **mediation analysis** straightforward. An indirect effect exists when X affects Y *through* an intervening variable M:
+
+$$X \to M \to Y$$
+
+Total effect = Direct effect + Indirect effect:
+$$c = c' + a \cdot b$$
+
+The standard approach is **bootstrapped confidence intervals** (not the outdated Sobel test):
+
+```r
+# Bootstrap 95% CI for indirect effect
+fit_boot <- sem(model_sem,
+                data      = hr_data,
+                estimator = "MLR",
+                se        = "bootstrap",
+                bootstrap = 2000)
+
+# Percentile bootstrap CI for the indirect effect
+parameterEstimates(fit_boot,
+                   boot.ci.type = "perc",
+                   level        = 0.95) |>
+  subset(label %in% c("indirect_res", "total_res"))
+```
+
+**Mediation is supported** when the bootstrap CI for the indirect effect does not include zero.
+
+Types of mediation:
+
+| Pattern | Evidence |
+|---|---|
+| **Full mediation** | Direct path c' ≈ 0, indirect effect significant |
+| **Partial mediation** | Both c' and indirect effect significant |
+| **No mediation** | Indirect effect not significant |
+
+---
+
+### 7.3.8. Visualising the SEM Path Diagram
+
+```r
+library(semPlot)
+
+semPaths(fit_sem,
+         what         = "std",         # standardised coefficients
+         whatLabels   = "std",
+         layout       = "tree2",
+         style        = "lisrel",
+         residuals    = FALSE,
+         edge.label.cex = 0.7,
+         sizeMan      = 6,
+         sizeLat      = 10,
+         rotation     = 2,
+         title        = TRUE)
+```
+
+---
+
+### 7.3.9. Multi-Group SEM (Measurement Invariance)
+
+A natural extension is to test whether the same model holds across groups (e.g., genders, countries):
+
+```r
+# Configural invariance — same factor structure in both groups
+fit_config <- sem(model_sem, data = hr_data, group = "country")
+
+# Metric invariance — factor loadings equal across groups
+fit_metric <- sem(model_sem, data = hr_data, group = "country",
+                  group.equal = "loadings")
+
+# Scalar invariance — loadings + intercepts equal
+fit_scalar <- sem(model_sem, data = hr_data, group = "country",
+                  group.equal = c("loadings", "intercepts"))
+
+# Compare models
+lavTestLRT(fit_config, fit_metric, fit_scalar)
+```
+
+**Measurement invariance is a prerequisite for meaningful group comparisons.** If scalar invariance fails, group mean differences on latent variables cannot be interpreted.
+
+---
+
+### 7.3.10. Sample Size Guidelines
+
+SEM requires larger samples than regression:
+
+| Rule | Recommendation |
+|---|---|
+| Minimum | n ≥ 200 |
+| Per estimated parameter | 10–20 observations per parameter |
+| Robust estimators (MLR, WLSMV) | Allow slightly smaller n |
+| With missing data | n ≥ 300 (use FIML) |
+
+With small samples (n < 200), SEM fit indices become unstable and standard errors unreliable. Consider using regularised SEM or Bayesian SEM.
+
+---
+
+### 7.3.11. The EFA → CFA → SEM Workflow
+
+In practice, scale development follows a sequential approach:
+
+```
+Step 1  EFA        Discover factor structure on a development sample
+   ↓
+Step 2  CFA        Validate the structure on a new (holdout) sample
+   ↓
+Step 3  Full SEM   Test structural (causal) relationships between validated latent constructs
+```
+
+Using the same dataset for both EFA and CFA is a form of double-dipping — the CFA will fit the EFA structure by construction, providing no independent validation. Always split your data or use a separate replication sample.

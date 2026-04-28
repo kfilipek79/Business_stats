@@ -1,0 +1,269 @@
+---
+title: "7.2. Confirmatory Factor Analysis (CFA)"
+author: "Kamil Filipek"
+---
+
+### 7.2.1. What Is CFA?
+
+**Confirmatory Factor Analysis (CFA)** tests whether a pre-specified **measurement model** — the hypothesised pattern of which observed items load onto which latent factors — fits the observed data.
+
+Unlike EFA, where the factor structure is discovered from the data, CFA starts with a **theory-driven hypothesis** and evaluates its empirical support.
+
+**When to use CFA:**
+- You already have a theoretically justified or EFA-derived factor structure to validate
+- You want to compare measurement models (e.g., one-factor vs. two-factor solution)
+- As the **measurement model** step before running full SEM
+- For cross-group measurement invariance testing (do the same factors hold in different groups?)
+
+---
+
+### 7.2.2. EFA vs. CFA — Key Differences
+
+| | EFA | CFA |
+|---|---|---|
+| **Purpose** | Discover structure | Test specified structure |
+| **Factor loadings** | All items load on all factors | Each item loads on pre-specified factor only |
+| **Cross-loadings** | Allowed (and estimated) | Fixed to zero (by default) |
+| **Unique (error) covariances** | Not modelled | Can be freed based on theory |
+| **Fit indices** | Not reported | Essential — must report |
+| **Stage in research** | Scale development | Scale validation / SEM |
+
+---
+
+### 7.2.3. CFA Model Notation
+
+A CFA model specifies:
+
+1. **Factor loadings (λ):** which items measure which factors
+2. **Factor variances/covariances (Φ):** how factors relate to each other
+3. **Unique (error) variances (θ):** item-specific variance
+
+```
+Factor 1 (ξ₁) ──λ₁──▶ item1
+               ──λ₂──▶ item2
+               ──λ₃──▶ item3
+               ──λ₄──▶ item4
+
+Factor 2 (ξ₂) ──λ₅──▶ item5
+               ──λ₆──▶ item6
+               ──λ₇──▶ item7
+
+ξ₁ ↔ ξ₂  (correlation between factors)
+```
+
+---
+
+### 7.2.4. Running CFA in R with lavaan
+
+```r
+library(lavaan)
+library(psych)
+
+# Simulate data: 2 factors, 4 items each
+set.seed(42)
+n <- 300
+
+F1 <- rnorm(n); F2 <- rnorm(n)
+cfa_data <- data.frame(
+  q1 = 0.80*F1 + rnorm(n, 0, 0.60),
+  q2 = 0.75*F1 + rnorm(n, 0, 0.65),
+  q3 = 0.70*F1 + rnorm(n, 0, 0.71),
+  q4 = 0.72*F1 + rnorm(n, 0, 0.69),
+  q5 = 0.78*F2 + rnorm(n, 0, 0.62),
+  q6 = 0.82*F2 + rnorm(n, 0, 0.57),
+  q7 = 0.74*F2 + rnorm(n, 0, 0.67),
+  q8 = 0.68*F2 + rnorm(n, 0, 0.73)
+)
+
+# Specify the CFA model
+model_cfa <- '
+  # Factor 1: Engagement
+  engagement =~ q1 + q2 + q3 + q4
+
+  # Factor 2: Satisfaction
+  satisfaction =~ q5 + q6 + q7 + q8
+'
+
+# Fit the model
+fit_cfa <- cfa(model_cfa,
+               data      = cfa_data,
+               estimator = "MLR",       # robust maximum likelihood
+               std.lv    = FALSE)       # marker variable scaling (default)
+
+# Full output
+summary(fit_cfa,
+        fit.measures  = TRUE,
+        standardized  = TRUE,
+        rsquare       = TRUE)
+```
+
+---
+
+### 7.2.5. Fit Indices
+
+Model fit tells you how well the specified factor structure reproduces the observed covariance matrix. **Always report multiple fit indices.**
+
+| Index | Good fit | Acceptable | What it measures |
+|---|---|---|---|
+| **CFI** (Comparative Fit Index) | ≥ 0.95 | ≥ 0.90 | Relative improvement over null model |
+| **TLI** (Tucker-Lewis Index) | ≥ 0.95 | ≥ 0.90 | CFI penalised for model complexity |
+| **RMSEA** | ≤ 0.06 | ≤ 0.08 | Average error per degree of freedom |
+| **SRMR** | ≤ 0.08 | ≤ 0.10 | Average standardised residual |
+| **χ²/df** | ≤ 2 | ≤ 5 | Overall misfit (inflated by n > 200) |
+
+```r
+# Extract fit indices
+fitMeasures(fit_cfa, c("chisq", "df", "cfi", "tli", "rmsea", "srmr",
+                       "rmsea.ci.lower", "rmsea.ci.upper"))
+```
+
+::: callout-warning
+**Never rely on χ² alone.** With samples larger than 200, χ² almost always rejects the model — this is a statistical artefact, not evidence of poor fit. Use CFI, RMSEA, and SRMR together.
+:::
+
+---
+
+### 7.2.6. Interpreting Factor Loadings
+
+```r
+# Standardised factor loadings
+standardizedSolution(fit_cfa) |>
+  subset(op == "=~")
+```
+
+| Standardised loading | Interpretation |
+|---|---|
+| ≥ 0.70 | Strong indicator — item clearly reflects the factor |
+| 0.50–0.70 | Adequate |
+| < 0.50 | Weak — consider revising or dropping the item |
+
+**Average Variance Extracted (AVE)** — proportion of construct variance captured by its indicators (convergent validity):
+
+$$AVE = \frac{\sum \lambda_i^2}{k}$$
+
+AVE ≥ 0.50 indicates adequate convergent validity.
+
+```r
+# Compute AVE manually
+loadings_std <- standardizedSolution(fit_cfa) |>
+  subset(op == "=~")
+
+ave_F1 <- mean(loadings_std[loadings_std$lhs == "engagement", "est.std"]^2)
+ave_F2 <- mean(loadings_std[loadings_std$lhs == "satisfaction", "est.std"]^2)
+cat("AVE engagement:   ", round(ave_F1, 3), "\n")
+cat("AVE satisfaction: ", round(ave_F2, 3), "\n")
+```
+
+---
+
+### 7.2.7. Reliability — Composite Reliability (CR)
+
+Composite reliability (CR) is preferred over Cronbach's α for CFA-based scales because it uses the actual factor loadings:
+
+$$CR = \frac{(\sum \lambda_i)^2}{(\sum \lambda_i)^2 + \sum (1 - \lambda_i^2)}$$
+
+```r
+# Using semTools package
+library(semTools)
+reliability(fit_cfa)
+# Provides omega (composite reliability), alpha, and AVE
+```
+
+**Interpretation:**
+- CR ≥ 0.70 — acceptable
+- CR ≥ 0.80 — good
+- CR ≥ 0.90 — excellent
+
+---
+
+### 7.2.8. Discriminant Validity
+
+Two factors have **discriminant validity** if they measure distinct constructs:
+
+**Criterion:** the square root of each factor's AVE should exceed its correlation with any other factor:
+
+$$\sqrt{AVE_i} > r_{ij} \quad \text{for all } i \neq j$$
+
+```r
+# Factor correlations
+lavInspect(fit_cfa, "cor.lv")
+
+# Compare to sqrt(AVE)
+cat("sqrt(AVE F1):", round(sqrt(ave_F1), 3), "\n")
+cat("sqrt(AVE F2):", round(sqrt(ave_F2), 3), "\n")
+```
+
+---
+
+### 7.2.9. Modification Indices
+
+When fit is poor, **modification indices (MI)** suggest which parameters, if freed, would most improve model fit.
+
+```r
+# Show modification indices
+modindices(fit_cfa, sort. = TRUE, maximum.number = 10)
+```
+
+Each MI approximates the reduction in χ² if that parameter were freed. Values > 10 are conventionally considered noteworthy.
+
+::: callout-warning
+Modifying a model based solely on MIs is **data-driven model fitting** — it capitalises on chance and will not replicate. Only free parameters that have a **theoretical justification** (e.g., two items from the same subdomain that share method variance).
+:::
+
+---
+
+### 7.2.10. Comparing Competing Models
+
+CFA allows formal comparison of nested models with the **likelihood ratio test** and information criteria:
+
+```r
+# One-factor model (all items measure one construct)
+model_1f <- '
+  general =~ q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8
+'
+fit_1f <- cfa(model_1f, data = cfa_data, estimator = "MLR")
+
+# Two-factor model (from above)
+fit_2f <- fit_cfa
+
+# Likelihood ratio test (only valid if one model is nested in the other)
+lavTestLRT(fit_1f, fit_2f)
+
+# Information criteria — lower is better; not limited to nested models
+AIC(fit_1f); AIC(fit_2f)
+BIC(fit_1f); BIC(fit_2f)
+```
+
+---
+
+### 7.2.11. Visualising the CFA Model
+
+```r
+library(semPlot)
+
+semPaths(fit_cfa,
+         what         = "std",       # standardised estimates
+         layout       = "tree",
+         residuals    = TRUE,
+         edge.label.cex = 0.8,
+         sizeMan      = 8,
+         sizeLat      = 12,
+         title        = TRUE,
+         curvePivot   = TRUE)
+```
+
+---
+
+### 7.2.12. CFA Reporting Checklist
+
+A complete CFA report should include:
+
+1. Theoretical basis for the specified model
+2. Sample size and missing data handling
+3. Estimator used (e.g., MLR) and why
+4. Factor loadings (standardised) with standard errors and p-values
+5. Fit indices: CFI, TLI, RMSEA (with 90% CI), SRMR
+6. AVE and composite reliability for each factor
+7. Factor correlations and discriminant validity evidence
+8. Any modifications made (with justification)
+9. Path diagram

@@ -1,0 +1,275 @@
+---
+title: "7.1. Exploratory Factor Analysis (EFA)"
+author: "Kamil Filipek"
+---
+
+### 7.1.1. What Is Exploratory Factor Analysis?
+
+**Exploratory Factor Analysis (EFA)** is a statistical technique for discovering the **latent structure** underlying a set of observed variables. When you have a large number of correlated items (e.g., survey questions), EFA helps identify a smaller number of **factors** (latent constructs) that explain the pattern of correlations.
+
+EFA is called *exploratory* because you do **not** specify in advance which items load onto which factor — the structure emerges from the data.
+
+**Typical applications:**
+- Developing and validating questionnaires and psychological scales
+- Customer segmentation based on attitude batteries
+- Reducing a large set of financial indicators to a few underlying dimensions
+- Identifying latent brand image dimensions from consumer ratings
+
+---
+
+### 7.1.2. EFA vs. CFA vs. PCA
+
+| Method | Purpose | Structure | Assumption |
+|---|---|---|---|
+| **EFA** | Discover latent structure | Unspecified | Items reflect factors + unique variance |
+| **CFA** | Test a hypothesised structure | Pre-specified | Measurement model must fit data |
+| **PCA** | Reduce dimensionality | Components explain max variance | Mathematical decomposition, no latent variables |
+
+Key distinction: **PCA** explains maximum variance in the observed variables; **EFA** explains the *common variance* (shared among variables), explicitly modelling unique variance per item.
+
+---
+
+### 7.1.3. The Factor Analysis Model
+
+Each observed variable $x_j$ is expressed as a linear combination of $k$ common factors plus a unique factor:
+
+$$x_j = \lambda_{j1} F_1 + \lambda_{j2} F_2 + \cdots + \lambda_{jk} F_k + \varepsilon_j$$
+
+where:
+- $F_m$ — common factors (latent, unobserved)
+- $\lambda_{jm}$ — **factor loading** of item $j$ on factor $m$ (standardised: ranges −1 to 1)
+- $\varepsilon_j$ — unique factor (item-specific variance + measurement error)
+
+**Communality** $h_j^2$ = proportion of item variance explained by all factors: $h_j^2 = \sum_m \lambda_{jm}^2$
+
+---
+
+### 7.1.4. Checking Assumptions
+
+Before running EFA, verify that the data are suitable:
+
+```r
+library(psych)
+library(GPArotation)
+
+# Example: employee engagement survey (150 respondents, 12 items)
+set.seed(42)
+n <- 200
+
+# Simulate 3 latent factors (4 items each)
+F1 <- rnorm(n); F2 <- rnorm(n); F3 <- rnorm(n)
+items <- data.frame(
+  q1  = 0.75*F1 + rnorm(n, 0, 0.6),
+  q2  = 0.80*F1 + rnorm(n, 0, 0.6),
+  q3  = 0.70*F1 + rnorm(n, 0, 0.6),
+  q4  = 0.65*F1 + rnorm(n, 0, 0.6),
+  q5  = 0.78*F2 + rnorm(n, 0, 0.6),
+  q6  = 0.82*F2 + rnorm(n, 0, 0.6),
+  q7  = 0.72*F2 + rnorm(n, 0, 0.6),
+  q8  = 0.68*F2 + rnorm(n, 0, 0.6),
+  q9  = 0.76*F3 + rnorm(n, 0, 0.6),
+  q10 = 0.79*F3 + rnorm(n, 0, 0.6),
+  q11 = 0.71*F3 + rnorm(n, 0, 0.6),
+  q12 = 0.67*F3 + rnorm(n, 0, 0.6)
+)
+
+# 1. Bartlett's test of sphericity — H0: correlation matrix is identity (no correlations)
+cortest.bartlett(items)
+# p < 0.05 required to justify EFA
+
+# 2. Kaiser-Meyer-Olkin (KMO) measure of sampling adequacy
+KMO(items)
+# KMO > 0.60 is acceptable; > 0.80 is "meritorious"; > 0.90 is "marvellous"
+```
+
+---
+
+### 7.1.5. How Many Factors? Finding the Optimal Number
+
+This is the most critical decision in EFA. Three complementary methods:
+
+#### Method 1: Scree Plot and the Elbow Rule
+
+Plot the eigenvalues of the correlation matrix in descending order. The **elbow** (the point where the curve bends and levels off) suggests the number of factors to retain.
+
+```r
+library(psych)
+
+# Eigenvalues
+ev <- eigen(cor(items))$values
+cat("Eigenvalues:\n", round(ev, 3), "\n")
+
+# Scree plot
+scree(items, factors = TRUE, pc = FALSE,
+      main = "Scree plot — factor eigenvalues")
+
+# Manual ggplot2 version
+library(ggplot2)
+
+scree_df <- data.frame(
+  Factor     = 1:length(ev),
+  Eigenvalue = ev
+)
+
+ggplot(scree_df, aes(x = Factor, y = Eigenvalue)) +
+  geom_line(colour = "steelblue", linewidth = 1) +
+  geom_point(colour = "steelblue", size = 3) +
+  geom_hline(yintercept = 1, linetype = "dashed", colour = "red",
+             linewidth = 0.8) +
+  annotate("text", x = length(ev) - 1, y = 1.1,
+           label = "Kaiser criterion (λ = 1)", colour = "red", size = 3.5) +
+  scale_x_continuous(breaks = 1:length(ev)) +
+  labs(title = "Scree plot",
+       subtitle = "Retain factors left of the elbow",
+       x = "Factor number", y = "Eigenvalue") +
+  theme_minimal()
+```
+
+**Reading the scree plot:**
+- The curve drops steeply at first, then levels off
+- The elbow is the point where the drop slows — retain factors **to the left** of the elbow
+- In our example, the elbow at factor 4 suggests **3 factors**
+
+#### Method 2: Kaiser Criterion (Eigenvalue > 1)
+
+Retain all factors with eigenvalue > 1. The logic: a factor should explain at least as much variance as a single standardised variable.
+
+```r
+sum(ev > 1)   # number of factors with eigenvalue > 1
+```
+
+::: callout-warning
+The Kaiser criterion tends to **over-extract** factors, especially with many variables. Use it as a starting point, not a definitive rule.
+:::
+
+#### Method 3: Parallel Analysis (Most Recommended)
+
+Parallel analysis compares the actual eigenvalues to those obtained from random data of the same size. Retain factors whose eigenvalues **exceed** the random eigenvalues.
+
+```r
+# Parallel analysis (Horn, 1965) — gold standard
+fa.parallel(items,
+            fa     = "fa",        # factor analysis (not PCA)
+            n.iter = 500,         # Monte Carlo iterations
+            main   = "Parallel analysis scree plot")
+
+# The plot shows:
+# Blue line: actual eigenvalues
+# Red dashed line: mean eigenvalues from random data
+# Retain factors where blue > red
+```
+
+#### Summary: Comparing the Three Methods
+
+```r
+# Velicer's MAP (Minimum Average Partial) criterion
+vss(items, n = 8, rotate = "oblimin", fm = "ml",
+    plot = TRUE)
+# Look for the number of factors that minimises the MAP value
+```
+
+| Method | Typical result | When to rely on it |
+|---|---|---|
+| **Parallel analysis** | Most accurate | Always — gold standard |
+| **Scree plot / elbow** | Slightly liberal | Visual confirmation |
+| **Kaiser (λ > 1)** | Often too many | Only as a rough guide |
+| **MAP criterion** | Conservative | Especially with many items |
+
+---
+
+### 7.1.6. Running EFA
+
+Once you have decided on the number of factors, run the analysis:
+
+```r
+library(psych)
+
+# 3-factor EFA with oblique rotation (recommended when factors may correlate)
+efa_result <- fa(items,
+                 nfactors = 3,
+                 rotate   = "oblimin",   # oblique; use "varimax" for orthogonal
+                 fm       = "ml",        # maximum likelihood estimator
+                 scores   = "regression")
+
+# Print factor loadings (suppress small loadings)
+print(efa_result$loadings, cutoff = 0.3)
+```
+
+---
+
+### 7.1.7. Rotation Methods
+
+Rotation makes the factor solution more interpretable by pushing loadings towards 0 or ±1.
+
+| Method | Type | Assumes factors | When to use |
+|---|---|---|---|
+| **Varimax** | Orthogonal | Uncorrelated | When factors are conceptually independent |
+| **Oblimin** | Oblique | Correlated | When factors may share variance (common in psychology/business) |
+| **Promax** | Oblique | Correlated | Faster approximation to oblimin |
+
+**Rule of thumb:** In social science and business, underlying constructs usually correlate. Prefer **oblique rotation** and report the pattern matrix.
+
+---
+
+### 7.1.8. Interpreting Factor Loadings
+
+```r
+# Factor loadings table
+fa.diagram(efa_result,
+           cut   = 0.3,
+           errors = FALSE,
+           main  = "EFA factor diagram")
+```
+
+**Guidelines for loading interpretation:**
+
+| |Loading| | Interpretation |
+|---|---|---|
+| $|\\lambda| \geq 0.70$ | Strong loading — clear indicator |
+| $0.50 \leq |\\lambda| < 0.70$ | Moderate loading — adequate |
+| $0.30 \leq |\\lambda| < 0.50$ | Weak loading — borderline |
+| $|\\lambda| < 0.30$ | Negligible — item likely does not belong |
+
+**Cross-loading:** an item with loadings ≥ 0.30 on two or more factors. Such items are ambiguous and may need to be revised or dropped.
+
+---
+
+### 7.1.9. Reliability of Factors
+
+After identifying factors, assess internal consistency with **Cronbach's α**:
+
+```r
+# Reliability for each factor (assuming items q1-q4 → Factor 1, etc.)
+alpha(items[, 1:4])$total$raw_alpha    # Factor 1
+alpha(items[, 5:8])$total$raw_alpha    # Factor 2
+alpha(items[, 9:12])$total$raw_alpha   # Factor 3
+```
+
+Interpretation:
+- α ≥ 0.90 — excellent
+- α ≥ 0.80 — good
+- α ≥ 0.70 — acceptable
+- α < 0.70 — questionable
+
+---
+
+### 7.1.10. EFA Reporting Checklist
+
+A complete EFA report should include:
+
+1. Sample size and item descriptions
+2. KMO value and Bartlett's test result
+3. Factor extraction method (ML, PAF) and rotation method
+4. Decision rule for number of factors (parallel analysis + scree plot)
+5. Factor loadings table (pattern matrix for oblique rotation)
+6. Communalities for each item
+7. Proportion of variance explained by each factor
+8. Cronbach's α for each factor/scale
+
+```r
+# Full output
+summary(efa_result)
+efa_result$communalities            # communalities
+efa_result$Vaccounted               # variance explained
+efa_result$Phi                      # factor correlations (oblique)
+```

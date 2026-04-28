@@ -1,0 +1,66 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Business Statistics"
+  subtitle: "From Data to Decisions"
+  author: "Kamil Filipek"
+  favicon: assets/favicon.ico
+  search: true
+  sidebar:
+    style: "floating"
+  chapters:
+    - index.qmd
+    - part: "**1. Foundations**"
+      chapters:
+        - stats_in_business.qmd
+        - variables.qmd
+        - r_intro.qmd
+    - part: "**2. Descriptive Statistics**"
+      chapters:
+        - central_tendency.qmd
+        - dispersion.qmd
+    - part: "**3. Data Preparation**"
+      chapters:
+        - data_quality.qmd
+        - visualization.qmd
+    - part: "**4. Statistical Inference**"
+      chapters:
+        - hypothesis_testing.qmd
+        - clt.qmd
+        - chi_square_ttest.qmd
+    - part: "**5. Covariance and Correlation**"
+      chapters:
+        - covariance.qmd
+        - correlation.qmd
+    - part: "**6. Regression Models**"
+      chapters:
+        - linear_regression.qmd
+        - logistic_regression.qmd
+    - part: "**7. Factor Analysis and SEM**"
+      chapters:
+        - efa.qmd
+        - cfa.qmd
+        - sem.qmd
+    - part: "References"
+      chapters:
+        - ref.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-location: right
+    toc-title: "Contents"
+    number-sections: false
+    code-line-numbers: true
+    anchor-sections: true
+    smooth-scroll: true
+    grid:
+      body-width: 920px
+      sidebar-width: 280px
+      margin-width: 280px
+      gutter-width: 1.2rem

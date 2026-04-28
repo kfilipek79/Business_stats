@@ -1,0 +1,151 @@
+---
+title: "3.1. Data Quality and Missing Data"
+author: "Kamil Filipek"
+---
+
+### 5.1.1. Why Data Quality Matters
+
+Before any statistical analysis, the data must be **understood, cleaned, and validated**. Poor data quality is the leading cause of incorrect analyses and poor business decisions — a fact captured by the phrase *"garbage in, garbage out."*
+
+Common data quality problems:
+
+| Problem | Description | Impact |
+|---|---|---|
+| **Missing values** | Observations where one or more variables have no value | Biased estimates, reduced sample size |
+| **Outliers** | Extreme values that may be errors or genuine extremes | Distorted means, inflated variance |
+| **Duplicates** | Same observation recorded more than once | Inflated counts, biased models |
+| **Encoding errors** | Typos, inconsistent categories ("male", "Male", "M") | Wrong groupings, model failures |
+| **Wrong data type** | Numeric stored as text, dates as strings | Failed computations |
+| **Imbalanced classes** | One class far more frequent (e.g., fraud: 0.1% of transactions) | Biased classifiers |
+
+### 5.1.2. Mechanisms of Missingness
+
+Understanding *why* data is missing determines the correct treatment:
+
+| Mechanism | Definition | Example | Implication |
+|---|---|---|---|
+| **MCAR** (Missing Completely At Random) | Missingness is independent of observed and unobserved data | Random equipment failure | Any imputation is unbiased |
+| **MAR** (Missing At Random) | Missingness depends on observed data, not on the missing value itself | Older respondents skip income question | Imputation using observed predictors is valid |
+| **MNAR** (Missing Not At Random) | Missingness depends on the missing value itself | High earners skip income question | Requires special models; simple imputation is biased |
+
+### 5.1.3. Exploratory Checks in Python
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+n = 300
+df = pd.DataFrame({
+    "age":       np.random.randint(18, 65, n),
+    "income":    np.random.normal(45000, 15000, n),
+    "education": np.random.choice(["Primary", "Secondary", "University", None], n,
+                                  p=[0.1, 0.35, 0.45, 0.10]),
+    "score":     np.random.normal(70, 12, n),
+})
+# Introduce MNAR: high-income respondents hide income
+df.loc[df["income"] > 65000, "income"] = np.where(
+    np.random.rand(sum(df["income"] > 65000)) < 0.6, np.nan, df.loc[df["income"] > 65000, "income"]
+)
+
+# Overview
+print(df.info())
+print("\nMissing values:")
+print(df.isnull().sum())
+print(df.isnull().mean().round(3) * 100, "% missing")
+
+# Missing pattern visualisation
+import seaborn as sns
+sns.heatmap(df.isnull(), cbar=False, yticklabels=False, cmap="viridis")
+plt.title("Missing data pattern (yellow = missing)")
+plt.tight_layout(), plt.show()
+```
+
+### 5.1.4. Simple Imputation Methods
+
+**Single imputation** replaces each missing value with a single estimate:
+
+```python
+from sklearn.impute import SimpleImputer
+import pandas as pd
+
+# Mean imputation (suitable for MCAR numeric variables)
+imp_mean = SimpleImputer(strategy="mean")
+df["income_imputed"] = imp_mean.fit_transform(df[["income"]])
+
+# Median imputation (robust to outliers)
+imp_median = SimpleImputer(strategy="median")
+df["income_med"] = imp_median.fit_transform(df[["income"]])
+
+# Mode imputation (for categorical)
+imp_mode = SimpleImputer(strategy="most_frequent")
+df["education_imputed"] = imp_mode.fit_transform(df[["education"]])
+
+print(df[["income", "income_imputed", "income_med"]].describe())
+```
+
+### 5.1.5. Multiple Imputation
+
+**Multiple imputation** creates several complete datasets (each with different plausible values), analyses each separately, and combines results using **Rubin's rules**. It is the gold standard for MAR data.
+
+```python
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+
+# MICE (Multiple Imputation by Chained Equations)
+mice = IterativeImputer(max_iter=10, random_state=0)
+df_imputed = pd.DataFrame(
+    mice.fit_transform(df[["age", "income", "score"]]),
+    columns=["age", "income_mice", "score"]
+)
+
+print(df_imputed.describe().round(1))
+```
+
+### 5.1.6. Handling Outliers
+
+```python
+import numpy as np
+import pandas as pd
+
+data = pd.Series([12, 14, 13, 15, 14, 16, 13, 100, 14, 15])  # 100 is an outlier
+
+# IQR method
+Q1, Q3 = data.quantile(0.25), data.quantile(0.75)
+IQR = Q3 - Q1
+lower, upper = Q1 - 1.5 * IQR, Q3 + 1.5 * IQR
+
+outliers = data[(data < lower) | (data > upper)]
+clean    = data[(data >= lower) & (data <= upper)]
+
+print(f"Outliers: {outliers.values}")
+print(f"Clean mean:   {clean.mean():.2f}")
+print(f"Original mean:{data.mean():.2f}")
+```
+
+**Decision framework for outliers:**
+
+1. **Verify** — is it a data entry error or a genuine extreme value?
+2. **Document** — record all decisions and their rationale
+3. **Handle** — remove (if error), cap/winsorise, or transform (log scale); never silently discard
+
+### 5.1.7. Data Quality Report
+
+A systematic data quality report should cover:
+
+```python
+def data_quality_report(df):
+    report = pd.DataFrame({
+        "dtype":        df.dtypes,
+        "n_missing":    df.isnull().sum(),
+        "pct_missing":  (df.isnull().mean() * 100).round(2),
+        "n_unique":     df.nunique(),
+        "min":          df.select_dtypes("number").min(),
+        "max":          df.select_dtypes("number").max(),
+        "mean":         df.select_dtypes("number").mean().round(2),
+    })
+    return report
+
+print(data_quality_report(df))
+```

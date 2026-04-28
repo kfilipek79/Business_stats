@@ -1,0 +1,54 @@
+---
+title: "References"
+author: "Kamil Filipek"
+---
+
+## Textbooks
+
+**Black, K.** (2009). *Business Statistics: Contemporary Decision Making* (6th ed.). John Wiley & Sons.
+
+**Kazmier, L. J.** (2009). *Theory and Problems of Business Statistics* (Schaum's Outline, 4th ed.). McGraw-Hill.
+
+**McEvoy, D. M.** (2018). *A Guide to Business Statistics*. Wiley.
+
+**Akinkunmi, M. A.** (2019). *Business Statistics with Solutions in R*. De Gruyter.
+
+**Gujarati, D. N., & Porter, D. C.** (2009). *Basic Econometrics* (5th ed.). McGraw-Hill.
+
+**Field, A.** (2013). *Discovering Statistics Using IBM SPSS Statistics* (4th ed.). SAGE Publications.
+
+**James, G., Witten, D., Hastie, T., & Tibshirani, R.** (2021). *An Introduction to Statistical Learning* (2nd ed.). Springer. [Free PDF available at statlearning.com]
+
+---
+
+## Methodology and Advanced Reading
+
+**Baron, R. M., & Kenny, D. A.** (1986). The moderator-mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations. *Journal of Personality and Social Psychology, 51*(6), 1173–1182.
+
+**Hair, J. F., Black, W. C., Babin, B. J., & Anderson, R. E.** (2019). *Multivariate Data Analysis* (8th ed.). Cengage Learning.
+
+**Kline, R. B.** (2016). *Principles and Practice of Structural Equation Modeling* (4th ed.). Guilford Press.
+
+**Little, R. J. A., & Rubin, D. B.** (2019). *Statistical Analysis with Missing Data* (3rd ed.). Wiley.
+
+---
+
+## Online Resources
+
+- **UMCS Course Management System:** [usosweb.umcs.pl](https://usosweb.umcs.pl)
+- **Statlearning.com** — free textbook and R/Python code for statistical learning
+- **Coursera Statistics Specialisation** — [coursera.org](https://www.coursera.org/courses?query=statistics)
+- **Khan Academy Statistics** — accessible introduction to core concepts
+- **SciPy documentation** — [scipy.org/docs](https://docs.scipy.org/doc/scipy/)
+- **Statsmodels documentation** — [statsmodels.org](https://www.statsmodels.org)
+- **lavaan documentation** — [lavaan.org](https://lavaan.ugent.be)
+
+---
+
+## Key Articles
+
+**Wasserstein, R. L., & Lazar, N. A.** (2016). The ASA's statement on p-values: Context, process, and purpose. *The American Statistician, 70*(2), 129–133.
+
+**Amrhein, V., Greenland, S., & McShane, B.** (2019). Scientists rise up against statistical significance. *Nature, 567*, 305–307.
+
+**Rubin, D. B.** (1987). *Multiple Imputation for Nonresponse in Surveys*. Wiley.

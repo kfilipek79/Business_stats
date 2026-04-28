@@ -1,0 +1,299 @@
+---
+title: "5.2. Correlation"
+author: "Kamil Filipek"
+---
+
+### 5.2.1. Pearson Correlation Coefficient
+
+**Pearson correlation** standardises covariance by dividing by the product of the two standard deviations, producing a dimensionless measure of linear association:
+
+$$r_{xy} = \frac{\text{cov}(X, Y)}{s_X \cdot s_Y} = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i - \bar{x})^2 \cdot \sum(y_i - \bar{y})^2}}$$
+
+The result always lies in $[-1, 1]$:
+
+| Value | Interpretation |
+|---|---|
+| $r = 1$ | Perfect positive linear relationship |
+| $0.7 \leq r < 1$ | Strong positive relationship |
+| $0.3 \leq r < 0.7$ | Moderate positive relationship |
+| $r \approx 0$ | No linear relationship |
+| $-0.7 < r \leq -0.3$ | Moderate negative relationship |
+| $r = -1$ | Perfect negative linear relationship |
+
+```r
+# R
+x <- c(25, 27, 29, 31, 33)
+y <- c(5,  15,  9, 20, 25)
+
+r <- cor(x, y)
+cat("Pearson r =", round(r, 3), "\n")
+
+# With significance test
+cor.test(x, y)
+```
+
+```python
+from scipy.stats import pearsonr
+
+x = [25, 27, 29, 31, 33]
+y = [5,  15,  9, 20, 25]
+
+r, p_value = pearsonr(x, y)
+print(f"Pearson r = {r:.3f}, p = {p_value:.4f}")
+```
+
+---
+
+### 5.2.2. Spearman and Kendall Rank Correlations
+
+When data are **ordinal** or the relationship is **non-linear** (but monotonic), rank-based correlations are preferred:
+
+**Spearman ρ (rho):** Pearson correlation computed on the ranks of the data:
+
+$$\rho = 1 - \frac{6 \sum d_i^2}{n(n^2 - 1)}$$
+
+where $d_i$ is the difference in ranks between the two variables for observation $i$.
+
+**Kendall τ (tau):** Proportion of concordant minus discordant pairs:
+
+$$\tau = \frac{C - D}{\frac{1}{2}n(n-1)}$$
+
+```r
+# R
+tenure  <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+satisf  <- c(3, 5, 2, 8, 7, 1, 9, 4, 6, 10)
+
+cor(tenure, satisf, method = "spearman")
+cor(tenure, satisf, method = "kendall")
+
+# With test
+cor.test(tenure, satisf, method = "spearman")
+```
+
+```python
+from scipy.stats import spearmanr, kendalltau
+
+tenure = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+satisf = [3, 5, 2, 8, 7, 1, 9, 4, 6, 10]
+
+rho, p1 = spearmanr(tenure, satisf)
+tau, p2 = kendalltau(tenure, satisf)
+
+print(f"Spearman ρ = {rho:.3f}  (p = {p1:.4f})")
+print(f"Kendall  τ = {tau:.3f}  (p = {p2:.4f})")
+```
+
+**Which measure to choose:**
+
+| Data type | Recommended measure |
+|---|---|
+| Both continuous + linear relationship | Pearson $r$ |
+| One or both ordinal | Spearman $\rho$ |
+| Small sample, or monotonic (non-linear) relationship | Kendall $\tau$ |
+| Both binary (0/1) | Phi coefficient (= Pearson $r$ for binary) |
+| One continuous, one binary | Point-biserial correlation |
+
+---
+
+### 5.2.3. Correlation Matrix
+
+When analysing multiple variables simultaneously, the **correlation matrix** shows all pairwise correlations at once.
+
+```r
+library(tidyverse)
+
+set.seed(42)
+df <- tibble(
+  revenue      = rnorm(100, 500, 100),
+  ad_spend     = rnorm(100, 50, 15),
+  staff        = sample(10:50, 100, replace = TRUE),
+  satisfaction = rnorm(100, 7.5, 1.2)
+)
+df <- df |> mutate(revenue = revenue + 3 * ad_spend)
+
+# Correlation matrix
+corr_mat <- cor(df)
+print(round(corr_mat, 3))
+```
+
+```python
+import pandas as pd
+import numpy as np
+
+np.random.seed(42)
+df = pd.DataFrame({
+    "revenue":      np.random.normal(500, 100, 100),
+    "ad_spend":     np.random.normal(50, 15, 100),
+    "staff":        np.random.randint(10, 50, 100),
+    "satisfaction": np.random.normal(7.5, 1.2, 100),
+})
+df["revenue"] = df["revenue"] + 3 * df["ad_spend"]
+
+print(df.corr().round(3))
+```
+
+---
+
+### 5.2.4. Visualising the Correlation Matrix
+
+#### Heatmap with `corrplot` (R)
+
+```r
+library(corrplot)
+
+corrplot(corr_mat,
+         method  = "color",       # colour squares
+         type    = "lower",       # show lower triangle only
+         addCoef.col = "black",   # print coefficients
+         tl.col  = "black",       # label colour
+         tl.srt  = 45,            # label angle
+         col     = colorRampPalette(c("#D73027", "white", "#1A9850"))(200),
+         diag    = FALSE,
+         title   = "Correlation matrix",
+         mar     = c(0, 0, 1, 0))
+```
+
+#### Heatmap with `ggplot2` (R)
+
+```r
+library(ggplot2)
+library(reshape2)
+
+corr_long <- melt(corr_mat)
+names(corr_long) <- c("Var1", "Var2", "value")
+
+ggplot(corr_long, aes(Var1, Var2, fill = value)) +
+  geom_tile(colour = "white") +
+  geom_text(aes(label = round(value, 2)), size = 3.5) +
+  scale_fill_gradient2(low = "#D73027", mid = "white", high = "#1A9850",
+                       midpoint = 0, limits = c(-1, 1),
+                       name = "Pearson r") +
+  coord_fixed() +
+  labs(title = "Correlation matrix", x = NULL, y = NULL) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+#### Heatmap with seaborn (Python)
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(6, 5))
+sns.heatmap(df.corr(),
+            annot    = True,
+            fmt      = ".2f",
+            cmap     = "RdYlGn",
+            center   = 0,
+            vmin     = -1, vmax = 1,
+            square   = True,
+            linewidths = 0.5,
+            ax       = ax)
+ax.set_title("Correlation matrix", pad=12)
+plt.tight_layout()
+plt.show()
+```
+
+#### Scatter-plot matrix (pairs plot)
+
+```r
+# Base R
+pairs(df, pch = 19, col = "steelblue", cex = 0.5,
+      main = "Scatter-plot matrix")
+
+# psych package — adds histograms, density, and r values
+library(psych)
+pairs.panels(df,
+             method  = "pearson",
+             hist.col = "steelblue",
+             density  = TRUE,
+             ellipses = TRUE)
+```
+
+```python
+import seaborn as sns
+
+sns.pairplot(df, diag_kind = "kde", plot_kws = {"alpha": 0.5})
+plt.suptitle("Scatter-plot matrix", y = 1.02)
+plt.show()
+```
+
+---
+
+### 5.2.5. Correlation ≠ Causation
+
+**Correlation** reveals statistical association; **causation** requires evidence that changes in X *produce* changes in Y. Confusing the two is one of the most common reasoning errors in business.
+
+Classic spurious correlations:
+- Per-capita cheese consumption correlates strongly with deaths by bedsheet tangling (r ≈ 0.95) — both trend upward over the same years
+- Ice cream sales correlate with drowning rates — summer drives both
+
+In business, correlation must be interpreted with knowledge of:
+
+- **Confounders** — a third variable drives both X and Y (e.g., seasonality driving both sales and competitor promotions)
+- **Reverse causation** — does X cause Y, or Y cause X? (e.g., does advertising increase revenue, or do high-revenue firms spend more on advertising?)
+- **Selection bias** — is the sample representative of the population?
+
+::: callout-warning
+A correlation of r = 0.8 between two variables does not mean X causes Y. Before drawing causal conclusions, you need a theoretical mechanism, a temporal ordering, and ideally a controlled experiment or quasi-experimental design.
+:::
+
+---
+
+### 5.2.6. Testing Significance of Correlation
+
+For a sample Pearson $r$, the test statistic:
+
+$$t = r\sqrt{\frac{n-2}{1-r^2}} \sim t_{n-2}$$
+
+under the null hypothesis $H_0: \rho = 0$.
+
+```r
+# Full output including confidence interval
+cor.test(df$revenue, df$ad_spend, method = "pearson")
+```
+
+::: callout-note
+With large samples, even very small correlations become statistically significant. **Always report effect size (r) alongside the p-value.** A correlation of r = 0.05 with p < 0.001 is statistically significant but practically irrelevant.
+:::
+
+---
+
+### 5.2.7. Practical Example: Employee Survey Data
+
+```r
+library(psych)
+library(corrplot)
+
+# Simulate employee survey (7-point Likert items)
+set.seed(99)
+n <- 200
+survey <- data.frame(
+  engagement    = round(rnorm(n, 5.2, 1.1)),
+  satisfaction  = round(rnorm(n, 4.9, 1.3)),
+  workload      = round(rnorm(n, 4.5, 1.4)),
+  autonomy      = round(rnorm(n, 5.0, 1.2)),
+  intention_stay = round(rnorm(n, 4.8, 1.5))
+)
+
+# Clip to 1-7 range
+survey[] <- lapply(survey, function(x) pmin(pmax(x, 1), 7))
+
+# Descriptive stats
+describe(survey)
+
+# Correlation matrix with significance
+corr_result <- corr.test(survey)
+print(corr_result$r, digits = 2)   # correlations
+print(corr_result$p, digits = 3)   # p-values
+
+# Visualise
+corrplot(corr_result$r,
+         p.mat   = corr_result$p,
+         sig.level = 0.05,
+         insig   = "blank",
+         method  = "ellipse",
+         type    = "lower",
+         tl.col  = "black")
+```
