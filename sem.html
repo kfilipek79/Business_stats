@@ -8,7 +8,7 @@
 
 <meta name="author" content="Kamil Filipek">
 
-<title>7.3. Structural Equation Modelling (SEM) – Business Statistics</title>
+<title>8.1. Structural Equation Modelling (SEM) – Business Statistics</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./efa.html"><strong>7. Factor Analysis and SEM</strong></a></li><li class="breadcrumb-item"><a href="./sem.html"><span class="chapter-title">7.3. Structural Equation Modelling (SEM)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sem.html"><strong>8. Structural Equation Modelling</strong></a></li><li class="breadcrumb-item"><a href="./sem.html"><span class="chapter-title">8.1. Structural Equation Modelling (SEM)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -321,7 +321,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>7. Factor Analysis and SEM</strong></span></a>
+ <span class="menu-text"><strong>7. Factor Analysis</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -337,22 +337,33 @@ window.Quarto = {
   <a href="./cfa.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7.2. Confirmatory Factor Analysis (CFA)</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>8. Structural Equation Modelling</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sem.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">7.3. Structural Equation Modelling (SEM)</span></a>
+  <a href="./sem.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">8.1. Structural Equation Modelling (SEM)</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
  <span class="menu-text">References</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ref.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">References</span></a>
@@ -370,26 +381,26 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#what-is-sem" id="toc-what-is-sem" class="nav-link active" data-scroll-target="#what-is-sem">7.3.1. What Is SEM?</a></li>
-  <li><a href="#key-components" id="toc-key-components" class="nav-link" data-scroll-target="#key-components">7.3.2. Key Components</a></li>
-  <li><a href="#a-conceptual-example" id="toc-a-conceptual-example" class="nav-link" data-scroll-target="#a-conceptual-example">7.3.3. A Conceptual Example</a></li>
-  <li><a href="#full-sem-in-r-with-lavaan" id="toc-full-sem-in-r-with-lavaan" class="nav-link" data-scroll-target="#full-sem-in-r-with-lavaan">7.3.4. Full SEM in R with lavaan</a></li>
-  <li><a href="#model-fit-assessment" id="toc-model-fit-assessment" class="nav-link" data-scroll-target="#model-fit-assessment">7.3.5. Model Fit Assessment</a></li>
-  <li><a href="#interpreting-structural-paths" id="toc-interpreting-structural-paths" class="nav-link" data-scroll-target="#interpreting-structural-paths">7.3.6. Interpreting Structural Paths</a></li>
-  <li><a href="#mediation-analysis" id="toc-mediation-analysis" class="nav-link" data-scroll-target="#mediation-analysis">7.3.7. Mediation Analysis</a></li>
-  <li><a href="#visualising-the-sem-path-diagram" id="toc-visualising-the-sem-path-diagram" class="nav-link" data-scroll-target="#visualising-the-sem-path-diagram">7.3.8. Visualising the SEM Path Diagram</a></li>
-  <li><a href="#multi-group-sem-measurement-invariance" id="toc-multi-group-sem-measurement-invariance" class="nav-link" data-scroll-target="#multi-group-sem-measurement-invariance">7.3.9. Multi-Group SEM (Measurement Invariance)</a></li>
-  <li><a href="#sample-size-guidelines" id="toc-sample-size-guidelines" class="nav-link" data-scroll-target="#sample-size-guidelines">7.3.10. Sample Size Guidelines</a></li>
-  <li><a href="#the-efa-cfa-sem-workflow" id="toc-the-efa-cfa-sem-workflow" class="nav-link" data-scroll-target="#the-efa-cfa-sem-workflow">7.3.11. The EFA → CFA → SEM Workflow</a></li>
+  <li><a href="#what-is-sem" id="toc-what-is-sem" class="nav-link active" data-scroll-target="#what-is-sem">8.1.1. What Is SEM?</a></li>
+  <li><a href="#key-components" id="toc-key-components" class="nav-link" data-scroll-target="#key-components">8.1.2. Key Components</a></li>
+  <li><a href="#a-conceptual-example-job-demands-resources-model" id="toc-a-conceptual-example-job-demands-resources-model" class="nav-link" data-scroll-target="#a-conceptual-example-job-demands-resources-model">8.1.3. A Conceptual Example: Job Demands-Resources Model</a></li>
+  <li><a href="#simulate-data-and-fit-the-model" id="toc-simulate-data-and-fit-the-model" class="nav-link" data-scroll-target="#simulate-data-and-fit-the-model">8.1.4. Simulate Data and Fit the Model</a></li>
+  <li><a href="#path-diagram-with-semplot" id="toc-path-diagram-with-semplot" class="nav-link" data-scroll-target="#path-diagram-with-semplot">8.1.5. Path Diagram with semPlot</a></li>
+  <li><a href="#model-fit-assessment" id="toc-model-fit-assessment" class="nav-link" data-scroll-target="#model-fit-assessment">8.1.6. Model Fit Assessment</a></li>
+  <li><a href="#interpreting-structural-paths" id="toc-interpreting-structural-paths" class="nav-link" data-scroll-target="#interpreting-structural-paths">8.1.7. Interpreting Structural Paths</a></li>
+  <li><a href="#mediation-analysis" id="toc-mediation-analysis" class="nav-link" data-scroll-target="#mediation-analysis">8.1.8. Mediation Analysis</a></li>
+  <li><a href="#multi-group-sem-measurement-invariance" id="toc-multi-group-sem-measurement-invariance" class="nav-link" data-scroll-target="#multi-group-sem-measurement-invariance">8.1.9. Multi-Group SEM (Measurement Invariance)</a></li>
+  <li><a href="#sample-size-guidelines" id="toc-sample-size-guidelines" class="nav-link" data-scroll-target="#sample-size-guidelines">8.1.10. Sample Size Guidelines</a></li>
+  <li><a href="#the-efa-cfa-sem-workflow" id="toc-the-efa-cfa-sem-workflow" class="nav-link" data-scroll-target="#the-efa-cfa-sem-workflow">8.1.11. The EFA → CFA → SEM Workflow</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./efa.html"><strong>7. Factor Analysis and SEM</strong></a></li><li class="breadcrumb-item"><a href="./sem.html"><span class="chapter-title">7.3. Structural Equation Modelling (SEM)</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sem.html"><strong>8. Structural Equation Modelling</strong></a></li><li class="breadcrumb-item"><a href="./sem.html"><span class="chapter-title">8.1. Structural Equation Modelling (SEM)</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">7.3. Structural Equation Modelling (SEM)</span></h1>
+<h1 class="title"><span class="chapter-title">8.1. Structural Equation Modelling (SEM)</span></h1>
 </div>
 
 
@@ -413,8 +424,8 @@ window.Quarto = {
 
 
 <section id="what-is-sem" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-sem">7.3.1. What Is SEM?</h3>
-<p><strong>Structural Equation Modelling (SEM)</strong> is a multivariate statistical framework that combines a <strong>measurement model</strong> (CFA) with a <strong>structural model</strong> (path analysis among latent variables) into a single, simultaneous analysis.</p>
+<h3 class="anchored" data-anchor-id="what-is-sem">8.1.1. What Is SEM?</h3>
+<p><strong>Structural Equation Modelling (SEM)</strong> is a multivariate statistical framework that combines a <strong>measurement model</strong> (CFA — how observed items reflect latent constructs) with a <strong>structural model</strong> (directional paths among latent constructs) into a single, simultaneous analysis.</p>
 <p>SEM extends multiple regression in three important ways:</p>
 <table class="caption-top table">
 <thead>
@@ -447,91 +458,184 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>SEM is the method of choice when: - Key constructs cannot be directly measured (attitudes, intelligence, brand equity) - You need to test a complete theoretical model rather than isolated bivariate relationships - You want to quantify mediation (indirect effects) with proper uncertainty estimates - You have <strong>multiple dependent variables</strong> that are causally ordered</p>
-<hr>
-</section>
-<section id="key-components" class="level3">
-<h3 class="anchored" data-anchor-id="key-components">7.3.2. Key Components</h3>
-<p><strong>Observed variables (manifest):</strong> variables directly measured (survey items, test scores)</p>
-<p><strong>Latent variables (constructs):</strong> theoretical concepts estimated from indicators: - <em>Exogenous</em> (ξ, “xi”) — purely independent; not caused by any other construct in the model - <em>Endogenous</em> (η, “eta”) — depend on at least one other construct in the model</p>
-<p><strong>Paths:</strong> - <em>Factor loadings (λ)</em> — link between indicators and their latent construct - <em>Structural paths (β, γ)</em> — directional relationships between latent constructs - <em>Residuals (ε, ζ)</em> — unexplained variance in indicators and endogenous constructs</p>
-<hr>
-</section>
-<section id="a-conceptual-example" class="level3">
-<h3 class="anchored" data-anchor-id="a-conceptual-example">7.3.3. A Conceptual Example</h3>
-<p>Consider an HR study of how <strong>Job Demands</strong> and <strong>Resources</strong> affect <strong>Burnout</strong> through <strong>Work Engagement</strong> (the Job Demands-Resources model):</p>
-<pre><code>Job Demands (ξ₁) ─────────────────────────────────▶ Burnout (η₂)
-                                                        ▲
-Resources (ξ₂) ──▶ Work Engagement (η₁) ──────────────┘</code></pre>
+<p>SEM is the method of choice when:</p>
 <ul>
-<li>Job Demands and Resources are measured by survey items (observed)</li>
-<li>Work Engagement and Burnout are latent constructs</li>
-<li>We test whether Resources reduce Burnout <em>indirectly</em> through Work Engagement (mediation)</li>
+<li>Key constructs cannot be directly measured (attitudes, satisfaction, brand equity)</li>
+<li>You need to test a complete theoretical model, not isolated bivariate relationships</li>
+<li>You want to quantify mediation (indirect effects) with proper uncertainty estimates</li>
+<li>You have <strong>multiple dependent variables</strong> that are causally ordered</li>
 </ul>
 <hr>
 </section>
-<section id="full-sem-in-r-with-lavaan" class="level3">
-<h3 class="anchored" data-anchor-id="full-sem-in-r-with-lavaan">7.3.4. Full SEM in R with lavaan</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(lavaan)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># ── Simulate data ────────────────────────────────────────────────</span></span>
+<section id="key-components" class="level3">
+<h3 class="anchored" data-anchor-id="key-components">8.1.2. Key Components</h3>
+<p><strong>Observed variables (manifest):</strong> directly measured (survey items, test scores, financial indicators)</p>
+<p><strong>Latent variables (constructs):</strong> theoretical concepts estimated from indicators:</p>
+<ul>
+<li><em>Exogenous</em> (ξ, “xi”) — purely independent; no construct in the model predicts them</li>
+<li><em>Endogenous</em> (η, “eta”) — depend on at least one other construct in the model</li>
+</ul>
+<p><strong>Paths:</strong></p>
+<ul>
+<li><em>Factor loadings (λ)</em> — links between indicators and their latent construct</li>
+<li><em>Structural paths (β, γ)</em> — directional relationships between latent constructs</li>
+<li><em>Residuals (ε, ζ)</em> — unexplained variance in indicators and endogenous constructs</li>
+</ul>
+<hr>
+</section>
+<section id="a-conceptual-example-job-demands-resources-model" class="level3">
+<h3 class="anchored" data-anchor-id="a-conceptual-example-job-demands-resources-model">8.1.3. A Conceptual Example: Job Demands-Resources Model</h3>
+<p>We use the classic <strong>JD-R model</strong> from organisational psychology:</p>
+<ul>
+<li><strong>Job Demands</strong> (exogenous) — workload, time pressure, emotional demands</li>
+<li><strong>Resources</strong> (exogenous) — autonomy, supervisor support, learning opportunities</li>
+<li><strong>Work Engagement</strong> (endogenous mediator) — driven by resources, dampened by demands</li>
+<li><strong>Burnout</strong> (endogenous outcome) — driven by demands, reduced by engagement</li>
+</ul>
+<pre><code>Job Demands (ξ₁) ───────────────────────────────────▶ Burnout (η₂)
+                                                          ▲
+Resources (ξ₂) ──▶ Work Engagement (η₁) ────────────────┘</code></pre>
+<hr>
+</section>
+<section id="simulate-data-and-fit-the-model" class="level3">
+<h3 class="anchored" data-anchor-id="simulate-data-and-fit-the-model">8.1.4. Simulate Data and Fit the Model</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(semPlot)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb2-5"><a href="#cb2-5"></a>n <span class="ot">&lt;-</span> <span class="dv">400</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a>JD  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)   <span class="co"># Job Demands (exogenous)</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>Res <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)   <span class="co"># Resources   (exogenous)</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>Eng <span class="ot">&lt;-</span> <span class="fl">0.5</span><span class="sc">*</span>Res <span class="sc">-</span> <span class="fl">0.2</span><span class="sc">*</span>JD <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.8</span>)   <span class="co"># Engagement (endogenous)</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>Bo  <span class="ot">&lt;-</span> <span class="fl">0.5</span><span class="sc">*</span>JD  <span class="sc">-</span> <span class="fl">0.4</span><span class="sc">*</span>Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.8</span>)  <span class="co"># Burnout    (endogenous)</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>JD  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>Res <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>Eng <span class="ot">&lt;-</span> <span class="fl">0.50</span> <span class="sc">*</span> Res <span class="sc">-</span> <span class="fl">0.20</span> <span class="sc">*</span> JD <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.8</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>Bo  <span class="ot">&lt;-</span> <span class="fl">0.50</span> <span class="sc">*</span> JD  <span class="sc">-</span> <span class="fl">0.40</span> <span class="sc">*</span> Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.8</span>)</span>
 <span id="cb2-11"><a href="#cb2-11"></a></span>
 <span id="cb2-12"><a href="#cb2-12"></a>hr_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-13"><a href="#cb2-13"></a>  <span class="at">jd1  =</span> <span class="fl">0.75</span><span class="sc">*</span>JD  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.65</span>),</span>
-<span id="cb2-14"><a href="#cb2-14"></a>  <span class="at">jd2  =</span> <span class="fl">0.80</span><span class="sc">*</span>JD  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.60</span>),</span>
-<span id="cb2-15"><a href="#cb2-15"></a>  <span class="at">jd3  =</span> <span class="fl">0.70</span><span class="sc">*</span>JD  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.71</span>),</span>
-<span id="cb2-16"><a href="#cb2-16"></a>  <span class="at">res1 =</span> <span class="fl">0.78</span><span class="sc">*</span>Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.62</span>),</span>
-<span id="cb2-17"><a href="#cb2-17"></a>  <span class="at">res2 =</span> <span class="fl">0.82</span><span class="sc">*</span>Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.57</span>),</span>
-<span id="cb2-18"><a href="#cb2-18"></a>  <span class="at">res3 =</span> <span class="fl">0.74</span><span class="sc">*</span>Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.67</span>),</span>
-<span id="cb2-19"><a href="#cb2-19"></a>  <span class="at">res4 =</span> <span class="fl">0.68</span><span class="sc">*</span>Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.73</span>),</span>
-<span id="cb2-20"><a href="#cb2-20"></a>  <span class="at">eng1 =</span> <span class="fl">0.77</span><span class="sc">*</span>Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.64</span>),</span>
-<span id="cb2-21"><a href="#cb2-21"></a>  <span class="at">eng2 =</span> <span class="fl">0.80</span><span class="sc">*</span>Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.60</span>),</span>
-<span id="cb2-22"><a href="#cb2-22"></a>  <span class="at">eng3 =</span> <span class="fl">0.72</span><span class="sc">*</span>Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.69</span>),</span>
-<span id="cb2-23"><a href="#cb2-23"></a>  <span class="at">bo1  =</span> <span class="fl">0.76</span><span class="sc">*</span>Bo  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.65</span>),</span>
-<span id="cb2-24"><a href="#cb2-24"></a>  <span class="at">bo2  =</span> <span class="fl">0.79</span><span class="sc">*</span>Bo  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.61</span>),</span>
-<span id="cb2-25"><a href="#cb2-25"></a>  <span class="at">bo3  =</span> <span class="fl">0.73</span><span class="sc">*</span>Bo  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.68</span>)</span>
-<span id="cb2-26"><a href="#cb2-26"></a>)</span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="co"># ── Model specification ──────────────────────────────────────────</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a>model_sem <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a><span class="st">  # ── Measurement model ──────────────────</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a><span class="st">  job_demands  =~ jd1  + jd2  + jd3</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a><span class="st">  resources    =~ res1 + res2 + res3 + res4</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="st">  engagement   =~ eng1 + eng2 + eng3</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="st">  burnout      =~ bo1  + bo2  + bo3</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="st">  # ── Structural model (causal paths) ────</span></span>
-<span id="cb2-37"><a href="#cb2-37"></a><span class="st">  engagement ~ resources + job_demands      # Resources and JD predict Engagement</span></span>
-<span id="cb2-38"><a href="#cb2-38"></a><span class="st">  burnout    ~ job_demands + engagement     # JD and Engagement predict Burnout</span></span>
-<span id="cb2-39"><a href="#cb2-39"></a></span>
-<span id="cb2-40"><a href="#cb2-40"></a><span class="st">  # ── Indirect effect (mediation) ────────</span></span>
-<span id="cb2-41"><a href="#cb2-41"></a><span class="st">  # Resources → Engagement → Burnout</span></span>
-<span id="cb2-42"><a href="#cb2-42"></a><span class="st">  indirect_res := resources * engagement</span></span>
-<span id="cb2-43"><a href="#cb2-43"></a><span class="st">  total_res    := resources + indirect_res</span></span>
-<span id="cb2-44"><a href="#cb2-44"></a><span class="st">'</span></span>
-<span id="cb2-45"><a href="#cb2-45"></a></span>
-<span id="cb2-46"><a href="#cb2-46"></a><span class="co"># ── Fit ──────────────────────────────────────────────────────────</span></span>
-<span id="cb2-47"><a href="#cb2-47"></a>fit_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem,</span>
-<span id="cb2-48"><a href="#cb2-48"></a>               <span class="at">data      =</span> hr_data,</span>
-<span id="cb2-49"><a href="#cb2-49"></a>               <span class="at">estimator =</span> <span class="st">"MLR"</span>,       <span class="co"># Robust ML — handles mild non-normality</span></span>
-<span id="cb2-50"><a href="#cb2-50"></a>               <span class="at">se        =</span> <span class="st">"robust"</span>)</span>
-<span id="cb2-51"><a href="#cb2-51"></a></span>
-<span id="cb2-52"><a href="#cb2-52"></a><span class="co"># ── Summary ──────────────────────────────────────────────────────</span></span>
-<span id="cb2-53"><a href="#cb2-53"></a><span class="fu">summary</span>(fit_sem,</span>
-<span id="cb2-54"><a href="#cb2-54"></a>        <span class="at">fit.measures =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-55"><a href="#cb2-55"></a>        <span class="at">standardized =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-56"><a href="#cb2-56"></a>        <span class="at">rsquare      =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="at">jd1  =</span> <span class="fl">0.75</span> <span class="sc">*</span> JD  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.65</span>),</span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="at">jd2  =</span> <span class="fl">0.80</span> <span class="sc">*</span> JD  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.60</span>),</span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="at">jd3  =</span> <span class="fl">0.70</span> <span class="sc">*</span> JD  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.71</span>),</span>
+<span id="cb2-16"><a href="#cb2-16"></a>  <span class="at">res1 =</span> <span class="fl">0.78</span> <span class="sc">*</span> Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.62</span>),</span>
+<span id="cb2-17"><a href="#cb2-17"></a>  <span class="at">res2 =</span> <span class="fl">0.82</span> <span class="sc">*</span> Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.57</span>),</span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="at">res3 =</span> <span class="fl">0.74</span> <span class="sc">*</span> Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.67</span>),</span>
+<span id="cb2-19"><a href="#cb2-19"></a>  <span class="at">res4 =</span> <span class="fl">0.68</span> <span class="sc">*</span> Res <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.73</span>),</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  <span class="at">eng1 =</span> <span class="fl">0.77</span> <span class="sc">*</span> Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.64</span>),</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="at">eng2 =</span> <span class="fl">0.80</span> <span class="sc">*</span> Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.60</span>),</span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="at">eng3 =</span> <span class="fl">0.72</span> <span class="sc">*</span> Eng <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.69</span>),</span>
+<span id="cb2-23"><a href="#cb2-23"></a>  <span class="at">bo1  =</span> <span class="fl">0.76</span> <span class="sc">*</span> Bo  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.65</span>),</span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="at">bo2  =</span> <span class="fl">0.79</span> <span class="sc">*</span> Bo  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.61</span>),</span>
+<span id="cb2-25"><a href="#cb2-25"></a>  <span class="at">bo3  =</span> <span class="fl">0.73</span> <span class="sc">*</span> Bo  <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">0.68</span>)</span>
+<span id="cb2-26"><a href="#cb2-26"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>model_sem <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  # ── Measurement model ──────────────────────────────</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  job_demands  =~ jd1  + jd2  + jd3</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  resources    =~ res1 + res2 + res3 + res4</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  engagement   =~ eng1 + eng2 + eng3</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="st">  burnout      =~ bo1  + bo2  + bo3</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="st">  # ── Structural paths (labelled for mediation) ──────</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="st">  engagement ~ a*resources + b*job_demands</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="st">  burnout    ~ c*job_demands + d*engagement</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="st">  # ── Indirect effect: Resources → Engagement → Burnout</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="st">  indirect_res := a * d</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="st">'</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a>fit_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem, <span class="at">data =</span> hr_data, <span class="at">estimator =</span> <span class="st">"MLR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <hr>
 </section>
+<section id="path-diagram-with-semplot" class="level3">
+<h3 class="anchored" data-anchor-id="path-diagram-with-semplot">8.1.5. Path Diagram with semPlot</h3>
+<p><code>semPlot</code> translates a fitted <code>lavaan</code> model directly into a publication-ready path diagram. Squares are observed variables; circles/ellipses are latent constructs; single-headed arrows are directional paths; double-headed arrows are (co)variances.</p>
+<section id="basic-diagram-standardised-coefficients" class="level4">
+<h4 class="anchored" data-anchor-id="basic-diagram-standardised-coefficients">Basic diagram — standardised coefficients</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">semPaths</span>(fit_sem,</span>
+<span id="cb4-2"><a href="#cb4-2"></a>         <span class="at">what        =</span> <span class="st">"std"</span>,        <span class="co"># show standardised estimates</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>         <span class="at">whatLabels  =</span> <span class="st">"std"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>         <span class="at">layout      =</span> <span class="st">"tree2"</span>,      <span class="co"># hierarchical left-to-right layout</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>         <span class="at">style       =</span> <span class="st">"lisrel"</span>,     <span class="co"># LISREL-style arrow heads</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>         <span class="at">rotation    =</span> <span class="dv">2</span>,            <span class="co"># left → right orientation</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>         <span class="at">residuals   =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-8"><a href="#cb4-8"></a>         <span class="at">edge.label.cex =</span> <span class="fl">0.75</span>,</span>
+<span id="cb4-9"><a href="#cb4-9"></a>         <span class="at">sizeMan     =</span> <span class="dv">7</span>,            <span class="co"># size of manifest (square) nodes</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>         <span class="at">sizeLat     =</span> <span class="dv">11</span>,           <span class="co"># size of latent (circle) nodes</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>         <span class="at">color       =</span> <span class="fu">list</span>(<span class="at">lat =</span> <span class="st">"#AED6F1"</span>, <span class="at">man =</span> <span class="st">"#D5DBDB"</span>),</span>
+<span id="cb4-12"><a href="#cb4-12"></a>         <span class="at">border.color =</span> <span class="st">"grey30"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13"></a>         <span class="at">edge.color  =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14"></a>         <span class="at">title       =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="sem_files/figure-html/semplot-basic-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption>SEM path diagram (standardised coefficients). Squares = observed indicators; ellipses = latent constructs.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="diagram-focused-on-structural-paths-only-no-residuals" class="level4">
+<h4 class="anchored" data-anchor-id="diagram-focused-on-structural-paths-only-no-residuals">Diagram focused on structural paths only (no residuals)</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">semPaths</span>(fit_sem,</span>
+<span id="cb5-2"><a href="#cb5-2"></a>         <span class="at">what        =</span> <span class="st">"std"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>         <span class="at">whatLabels  =</span> <span class="st">"std"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>         <span class="at">layout      =</span> <span class="st">"tree2"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>         <span class="at">style       =</span> <span class="st">"lisrel"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>         <span class="at">rotation    =</span> <span class="dv">2</span>,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>         <span class="at">residuals   =</span> <span class="cn">FALSE</span>,        <span class="co"># hide residuals for cleaner view</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>         <span class="at">intercepts  =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>         <span class="at">edge.label.cex =</span> <span class="fl">0.85</span>,</span>
+<span id="cb5-10"><a href="#cb5-10"></a>         <span class="at">sizeMan     =</span> <span class="dv">6</span>,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>         <span class="at">sizeLat     =</span> <span class="dv">13</span>,</span>
+<span id="cb5-12"><a href="#cb5-12"></a>         <span class="at">color       =</span> <span class="fu">list</span>(<span class="at">lat =</span> <span class="st">"#A9DFBF"</span>, <span class="at">man =</span> <span class="st">"#FDEBD0"</span>),</span>
+<span id="cb5-13"><a href="#cb5-13"></a>         <span class="at">border.color =</span> <span class="st">"grey30"</span>,</span>
+<span id="cb5-14"><a href="#cb5-14"></a>         <span class="at">title       =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="sem_files/figure-html/semplot-structural-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption>Structural paths only — measurement residuals hidden for clarity.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="colour-coded-by-direction-of-effect" class="level4">
+<h4 class="anchored" data-anchor-id="colour-coded-by-direction-of-effect">Colour-coded by direction of effect</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">semPaths</span>(fit_sem,</span>
+<span id="cb6-2"><a href="#cb6-2"></a>         <span class="at">what        =</span> <span class="st">"std"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>         <span class="at">whatLabels  =</span> <span class="st">"std"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>         <span class="at">layout      =</span> <span class="st">"tree2"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>         <span class="at">style       =</span> <span class="st">"lisrel"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>         <span class="at">rotation    =</span> <span class="dv">2</span>,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>         <span class="at">residuals   =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-8"><a href="#cb6-8"></a>         <span class="at">intercepts  =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>         <span class="at">edge.label.cex =</span> <span class="fl">0.8</span>,</span>
+<span id="cb6-10"><a href="#cb6-10"></a>         <span class="at">sizeMan     =</span> <span class="dv">6</span>,</span>
+<span id="cb6-11"><a href="#cb6-11"></a>         <span class="at">sizeLat     =</span> <span class="dv">12</span>,</span>
+<span id="cb6-12"><a href="#cb6-12"></a>         <span class="at">posCol      =</span> <span class="st">"#27AE60"</span>,    <span class="co"># positive paths → green</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a>         <span class="at">negCol      =</span> <span class="st">"#E74C3C"</span>,    <span class="co"># negative paths → red</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>         <span class="at">border.color =</span> <span class="st">"grey20"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15"></a>         <span class="at">title       =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="sem_files/figure-html/semplot-colored-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption>Path diagram coloured by sign: green = positive paths, red = negative paths.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
 <section id="model-fit-assessment" class="level3">
-<h3 class="anchored" data-anchor-id="model-fit-assessment">7.3.5. Model Fit Assessment</h3>
+<h3 class="anchored" data-anchor-id="model-fit-assessment">8.1.6. Model Fit Assessment</h3>
 <p>A SEM result without fit evaluation is meaningless. Report all four indices:</p>
 <table class="caption-top table">
 <thead>
@@ -569,11 +673,20 @@ Resources (ξ₂) ──▶ Work Engagement (η₁) ─────────�
 </tr>
 </tbody>
 </table>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">fitMeasures</span>(fit_sem,</span>
-<span id="cb3-2"><a href="#cb3-2"></a>            <span class="fu">c</span>(<span class="st">"chisq"</span>, <span class="st">"df"</span>, <span class="st">"pvalue"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3"></a>              <span class="st">"cfi"</span>, <span class="st">"tli"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4"></a>              <span class="st">"rmsea"</span>, <span class="st">"rmsea.ci.lower"</span>, <span class="st">"rmsea.ci.upper"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5"></a>              <span class="st">"srmr"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">fitMeasures</span>(fit_sem,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>            <span class="fu">c</span>(<span class="st">"chisq"</span>, <span class="st">"df"</span>, <span class="st">"pvalue"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>              <span class="st">"cfi"</span>, <span class="st">"tli"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>              <span class="st">"rmsea"</span>, <span class="st">"rmsea.ci.lower"</span>, <span class="st">"rmsea.ci.upper"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>              <span class="st">"srmr"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         chisq             df         pvalue            cfi            tli 
+        64.842         60.000          0.312          0.997          0.997 
+         rmsea rmsea.ci.lower rmsea.ci.upper           srmr 
+         0.014          0.000          0.034          0.030 </code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -590,33 +703,50 @@ Warning
 <hr>
 </section>
 <section id="interpreting-structural-paths" class="level3">
-<h3 class="anchored" data-anchor-id="interpreting-structural-paths">7.3.6. Interpreting Structural Paths</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Standardised structural path coefficients</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">standardizedSolution</span>(fit_sem) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">subset</span>(op <span class="sc">==</span> <span class="st">"~"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Structural coefficients are interpreted like standardised regression coefficients: - A path of β = 0.35 means “a one standard-deviation increase in X is associated with a 0.35 standard-deviation change in Y, holding other paths constant”</p>
+<h3 class="anchored" data-anchor-id="interpreting-structural-paths">8.1.7. Interpreting Structural Paths</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">standardizedSolution</span>(fit_sem) <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">subset</span>(op <span class="sc">==</span> <span class="st">"~"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  (\(x) x[, <span class="fu">c</span>(<span class="st">"lhs"</span>, <span class="st">"op"</span>, <span class="st">"rhs"</span>, <span class="st">"est.std"</span>, <span class="st">"se"</span>, <span class="st">"pvalue"</span>)])() <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">transform</span>(<span class="at">est.std =</span> <span class="fu">round</span>(est.std, <span class="dv">3</span>),</span>
+<span id="cb9-5"><a href="#cb9-5"></a>            <span class="at">se      =</span> <span class="fu">round</span>(se,      <span class="dv">3</span>),</span>
+<span id="cb9-6"><a href="#cb9-6"></a>            <span class="at">pvalue  =</span> <span class="fu">round</span>(pvalue,  <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          lhs op         rhs est.std    se pvalue
+14 engagement  ~   resources   0.443 0.052 0.0000
+15 engagement  ~ job_demands  -0.150 0.056 0.0075
+16    burnout  ~ job_demands   0.491 0.053 0.0000
+17    burnout  ~  engagement  -0.332 0.051 0.0000</code></pre>
+</div>
+</div>
+<p>Structural coefficients are interpreted like standardised regression coefficients: a path of β = 0.35 means <em>“a one SD increase in X is associated with a 0.35 SD change in Y, holding all other paths constant.”</em></p>
 <hr>
 </section>
 <section id="mediation-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="mediation-analysis">7.3.7. Mediation Analysis</h3>
-<p>SEM makes <strong>mediation analysis</strong> straightforward. An indirect effect exists when X affects Y <em>through</em> an intervening variable M:</p>
-<p><span class="math display">\[X \to M \to Y\]</span></p>
-<p>Total effect = Direct effect + Indirect effect: <span class="math display">\[c = c' + a \cdot b\]</span></p>
-<p>The standard approach is <strong>bootstrapped confidence intervals</strong> (not the outdated Sobel test):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Bootstrap 95% CI for indirect effect</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>fit_boot <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                <span class="at">data      =</span> hr_data,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                <span class="at">estimator =</span> <span class="st">"MLR"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                <span class="at">se        =</span> <span class="st">"bootstrap"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                <span class="at">bootstrap =</span> <span class="dv">2000</span>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># Percentile bootstrap CI for the indirect effect</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="fu">parameterEstimates</span>(fit_boot,</span>
-<span id="cb5-10"><a href="#cb5-10"></a>                   <span class="at">boot.ci.type =</span> <span class="st">"perc"</span>,</span>
-<span id="cb5-11"><a href="#cb5-11"></a>                   <span class="at">level        =</span> <span class="fl">0.95</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>  <span class="fu">subset</span>(label <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"indirect_res"</span>, <span class="st">"total_res"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Mediation is supported</strong> when the bootstrap CI for the indirect effect does not include zero.</p>
-<p>Types of mediation:</p>
+<h3 class="anchored" data-anchor-id="mediation-analysis">8.1.8. Mediation Analysis</h3>
+<p>SEM makes <strong>mediation analysis</strong> straightforward. An indirect effect exists when X affects Y <em>through</em> M:</p>
+<p><span class="math display">\[X \xrightarrow{a} M \xrightarrow{b} Y \qquad \text{indirect effect} = a \times b\]</span></p>
+<p>The standard approach is <strong>bootstrapped confidence intervals</strong> (preferred over the Sobel test):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>fit_boot <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem,</span>
+<span id="cb11-2"><a href="#cb11-2"></a>                <span class="at">data      =</span> hr_data,</span>
+<span id="cb11-3"><a href="#cb11-3"></a>                <span class="at">se        =</span> <span class="st">"bootstrap"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>                <span class="at">bootstrap =</span> <span class="dv">1000</span>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="fu">parameterEstimates</span>(fit_boot,</span>
+<span id="cb11-7"><a href="#cb11-7"></a>                   <span class="at">boot.ci.type =</span> <span class="st">"perc"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8"></a>                   <span class="at">level =</span> <span class="fl">0.95</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>  <span class="fu">subset</span>(label <span class="sc">==</span> <span class="st">"indirect_res"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a>  (\(x) x[, <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"est"</span>, <span class="st">"ci.lower"</span>, <span class="st">"ci.upper"</span>)])() <span class="sc">|&gt;</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>  <span class="fu">transform</span>(<span class="at">est      =</span> <span class="fu">round</span>(est,      <span class="dv">3</span>),</span>
+<span id="cb11-12"><a href="#cb11-12"></a>            <span class="at">ci.lower =</span> <span class="fu">round</span>(ci.lower, <span class="dv">3</span>),</span>
+<span id="cb11-13"><a href="#cb11-13"></a>            <span class="at">ci.upper =</span> <span class="fu">round</span>(ci.upper, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          label    est ci.lower ci.upper
+36 indirect_res -0.152   -0.227   -0.091</code></pre>
+</div>
+</div>
+<p><strong>Mediation is supported</strong> when the bootstrap CI for the indirect effect excludes zero.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -631,55 +761,37 @@ Warning
 </tr>
 <tr class="even">
 <td><strong>Partial mediation</strong></td>
-<td>Both c’ and indirect effect significant</td>
+<td>Both c’ and indirect significant</td>
 </tr>
 <tr class="odd">
 <td><strong>No mediation</strong></td>
-<td>Indirect effect not significant</td>
+<td>Indirect effect CI includes zero</td>
 </tr>
 </tbody>
 </table>
 <hr>
 </section>
-<section id="visualising-the-sem-path-diagram" class="level3">
-<h3 class="anchored" data-anchor-id="visualising-the-sem-path-diagram">7.3.8. Visualising the SEM Path Diagram</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(semPlot)</span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">semPaths</span>(fit_sem,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>         <span class="at">what         =</span> <span class="st">"std"</span>,         <span class="co"># standardised coefficients</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a>         <span class="at">whatLabels   =</span> <span class="st">"std"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6"></a>         <span class="at">layout       =</span> <span class="st">"tree2"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7"></a>         <span class="at">style        =</span> <span class="st">"lisrel"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>         <span class="at">residuals    =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb6-9"><a href="#cb6-9"></a>         <span class="at">edge.label.cex =</span> <span class="fl">0.7</span>,</span>
-<span id="cb6-10"><a href="#cb6-10"></a>         <span class="at">sizeMan      =</span> <span class="dv">6</span>,</span>
-<span id="cb6-11"><a href="#cb6-11"></a>         <span class="at">sizeLat      =</span> <span class="dv">10</span>,</span>
-<span id="cb6-12"><a href="#cb6-12"></a>         <span class="at">rotation     =</span> <span class="dv">2</span>,</span>
-<span id="cb6-13"><a href="#cb6-13"></a>         <span class="at">title        =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
 <section id="multi-group-sem-measurement-invariance" class="level3">
-<h3 class="anchored" data-anchor-id="multi-group-sem-measurement-invariance">7.3.9. Multi-Group SEM (Measurement Invariance)</h3>
-<p>A natural extension is to test whether the same model holds across groups (e.g., genders, countries):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Configural invariance — same factor structure in both groups</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>fit_config <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem, <span class="at">data =</span> hr_data, <span class="at">group =</span> <span class="st">"country"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># Metric invariance — factor loadings equal across groups</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>fit_metric <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem, <span class="at">data =</span> hr_data, <span class="at">group =</span> <span class="st">"country"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>                  <span class="at">group.equal =</span> <span class="st">"loadings"</span>)</span>
-<span id="cb7-7"><a href="#cb7-7"></a></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># Scalar invariance — loadings + intercepts equal</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a>fit_scalar <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem, <span class="at">data =</span> hr_data, <span class="at">group =</span> <span class="st">"country"</span>,</span>
-<span id="cb7-10"><a href="#cb7-10"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>))</span>
-<span id="cb7-11"><a href="#cb7-11"></a></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co"># Compare models</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="fu">lavTestLRT</span>(fit_config, fit_metric, fit_scalar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Measurement invariance is a prerequisite for meaningful group comparisons.</strong> If scalar invariance fails, group mean differences on latent variables cannot be interpreted.</p>
+<h3 class="anchored" data-anchor-id="multi-group-sem-measurement-invariance">8.1.9. Multi-Group SEM (Measurement Invariance)</h3>
+<p>Test whether the same model holds across groups — a prerequisite for meaningful group comparisons:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Same factor structure in both groups (configural)</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>fit_config <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem, <span class="at">data =</span> hr_data, <span class="at">group =</span> <span class="st">"country"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co"># Factor loadings equal across groups (metric)</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>fit_metric <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem, <span class="at">data =</span> hr_data, <span class="at">group =</span> <span class="st">"country"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6"></a>                  <span class="at">group.equal =</span> <span class="st">"loadings"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co"># Loadings + intercepts equal (scalar)</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>fit_scalar <span class="ot">&lt;-</span> <span class="fu">sem</span>(model_sem, <span class="at">data =</span> hr_data, <span class="at">group =</span> <span class="st">"country"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"intercepts"</span>))</span>
+<span id="cb13-11"><a href="#cb13-11"></a></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co"># Likelihood ratio test</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="fu">lavTestLRT</span>(fit_config, fit_metric, fit_scalar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Scalar invariance</strong> is required before comparing latent means across groups.</p>
 <hr>
 </section>
 <section id="sample-size-guidelines" class="level3">
-<h3 class="anchored" data-anchor-id="sample-size-guidelines">7.3.10. Sample Size Guidelines</h3>
-<p>SEM requires larger samples than regression:</p>
+<h3 class="anchored" data-anchor-id="sample-size-guidelines">8.1.10. Sample Size Guidelines</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -694,30 +806,40 @@ Warning
 </tr>
 <tr class="even">
 <td>Per estimated parameter</td>
-<td>10–20 observations per parameter</td>
+<td>10–20 observations</td>
 </tr>
 <tr class="odd">
-<td>Robust estimators (MLR, WLSMV)</td>
-<td>Allow slightly smaller n</td>
+<td>With robust estimators (MLR, WLSMV)</td>
+<td>Slightly smaller n possible</td>
 </tr>
 <tr class="even">
-<td>With missing data</td>
-<td>n ≥ 300 (use FIML)</td>
+<td>With missing data (FIML)</td>
+<td>n ≥ 300 recommended</td>
 </tr>
 </tbody>
 </table>
-<p>With small samples (n &lt; 200), SEM fit indices become unstable and standard errors unreliable. Consider using regularised SEM or Bayesian SEM.</p>
 <hr>
 </section>
 <section id="the-efa-cfa-sem-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="the-efa-cfa-sem-workflow">7.3.11. The EFA → CFA → SEM Workflow</h3>
-<p>In practice, scale development follows a sequential approach:</p>
+<h3 class="anchored" data-anchor-id="the-efa-cfa-sem-workflow">8.1.11. The EFA → CFA → SEM Workflow</h3>
 <pre><code>Step 1  EFA        Discover factor structure on a development sample
    ↓
-Step 2  CFA        Validate the structure on a new (holdout) sample
+Step 2  CFA        Validate the structure on an independent holdout sample
    ↓
-Step 3  Full SEM   Test structural (causal) relationships between validated latent constructs</code></pre>
-<p>Using the same dataset for both EFA and CFA is a form of double-dipping — the CFA will fit the EFA structure by construction, providing no independent validation. Always split your data or use a separate replication sample.</p>
+Step 3  Full SEM   Test structural (causal) paths between validated latent constructs</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Never use the same dataset for both EFA and CFA — the CFA will fit the EFA structure by construction, giving no independent validation. Always split your data or use a replication sample.</p>
+</div>
+</div>
 
 
 </section>
